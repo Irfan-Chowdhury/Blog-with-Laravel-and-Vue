@@ -74,10 +74,13 @@
           <li class="nav-item">
             <a href="../widgets.html" class="nav-link">
               <i class="nav-icon fa fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
+                <p>Category</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../widgets.html" class="nav-link">
+              <i class="nav-icon fa fa-th"></i>
+                <p>Post</p>
             </a>
           </li>
         
