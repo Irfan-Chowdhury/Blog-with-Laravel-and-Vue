@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->unsignedBigInteger('commenet_id')->nullable();
+            $table->unsignedBigInteger('comment_id')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('photo')->nullable();
