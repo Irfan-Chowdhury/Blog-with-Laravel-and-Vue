@@ -8,13 +8,9 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router'
 Vue.use(VueRouter) 
 
+import {routes} from './routes';  //'routes' name should be same, see bellow (16 line)
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
-const routes = [  //16,22 routes name should be same
-    // { path: '/foo', component: Foo },
-    // { path: '/bar', component: Bar }
-  ]
+Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default);
 
 const router = new VueRouter({
     routes, // short for `routes: routes`
@@ -27,7 +23,8 @@ const app = new Vue({
 });
 
 
-//1. command: npm run watch
-//2. app.js
-//3. ExampleComponent.vue
-//4. adminmaster.blade.php
+//1.AdminHome
+//2.AdminMaster
+//3.app.js
+//4.routes
+//5.adminmaster.blade.php

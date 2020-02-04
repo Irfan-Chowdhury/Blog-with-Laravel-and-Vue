@@ -111,7 +111,9 @@
           </div> --}}
         </div>
         <div class="card-body">
-          Start creating your amazing application!
+          {{-- Start creating your amazing application!  --}}
+            {{-- <home></home> --}}
+            <admin-main></admin-main>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -125,8 +127,6 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <example-component></example-component>
 
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
