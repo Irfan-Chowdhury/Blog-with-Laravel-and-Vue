@@ -2074,6 +2074,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "New",
   data: function data() {
@@ -2085,10 +2088,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addCategory: function addCategory() {
-      //console.log('ok') // for check
+      var _this = this;
+
+      //console.log('ok') // for check, or
       this.form.post('/add-category').then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
+
+        // console.log(data) // check in console
+        _this.$router.push('category-list'); //redirect into category-list after save
+
       });
     }
   }
@@ -38676,38 +38684,54 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "category_name" } }, [
-                    _vm._v("Category Name")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.category_name,
-                        expression: "form.category_name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      name: "category_name",
-                      type: "text",
-                      id: "category_name",
-                      placeholder: "Enter Category Name"
-                    },
-                    domProps: { value: _vm.form.category_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "category_name" } }, [
+                      _vm._v("Category Name")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.category_name,
+                          expression: "form.category_name"
                         }
-                        _vm.$set(_vm.form, "category_name", $event.target.value)
+                      ],
+                      staticClass: "form-control",
+                      class: {
+                        "is-invalid": _vm.form.errors.has("category_name")
+                      },
+                      attrs: {
+                        name: "category_name",
+                        type: "text",
+                        id: "category_name",
+                        placeholder: "Enter Category Name"
+                      },
+                      domProps: { value: _vm.form.category_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "category_name",
+                            $event.target.value
+                          )
+                        }
                       }
-                    }
-                  })
-                ])
+                    }),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "category_name" }
+                    })
+                  ],
+                  1
+                )
               ]),
               _vm._v(" "),
               _vm._m(1)

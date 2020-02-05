@@ -11,7 +11,10 @@
                         <div class="card-body">
                         <div class="form-group">
                             <label for="category_name">Category Name</label>
-                            <input name="category_name" v-model="form.category_name" type="text" class="form-control" id="category_name" placeholder="Enter Category Name">
+
+                            <input name="category_name" v-model="form.category_name" type="text" id="category_name" class="form-control"  :class="{ 'is-invalid': form.errors.has('category_name') }"  placeholder="Enter Category Name">
+                            <has-error :form="form" field="category_name"></has-error>
+                            
                         </div>
                         </div>
                         <!-- /.card-body -->
@@ -39,10 +42,12 @@ export default {
     },
     methods: {
         addCategory(){
-            //console.log('ok') // for check
+            //console.log('ok') // for check, or
+
             this.form.post('/add-category')
             .then(({ data }) => { 
-                console.log(data) 
+                // console.log(data) // check in console
+                this.$router.push('category-list') //redirect into category-list after save
             })
         }
     },
