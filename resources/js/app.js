@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 
 import {routes} from './routes';  //'routes' name should be same, see bellow (16 line)
 
-Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default);
+Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default); //'admin-main' this type of name must be small letter
 
 const router = new VueRouter({
     routes, // short for `routes: routes`
@@ -22,9 +22,3 @@ const app = new Vue({
     router //can access all router after put this here  
 });
 
-
-//1.AdminHome
-//2.AdminMaster
-//3.app.js
-//4.routes
-//5.adminmaster.blade.php

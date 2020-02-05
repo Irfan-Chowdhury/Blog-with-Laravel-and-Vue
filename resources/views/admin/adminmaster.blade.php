@@ -21,7 +21,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
-<div class="wrapper" id="app">
+<div class="wrapper" id="app"> <!-- This id for Vue Router --> 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
     <!-- Left navbar links -->
@@ -45,7 +45,7 @@
 
   </nav>
   <!-- /.navbar -->
-
+{{--  ============================================  Sidebar Left ============================================  --}}
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -66,10 +66,10 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <router-link to="/home" href="#" class="nav-link">  <!--Router Link -->
               <i class="nav-icon fa fa-dashboard"></i>
               <p>Dashboard</p>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
             <a href="../widgets.html" class="nav-link">
@@ -78,10 +78,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
+            <router-link to="/post" class="nav-link"> <!--Router Link -->
               <i class="nav-icon fa fa-th"></i>
                 <p>Post</p>
-            </a>
+            </router-link >
           </li>
         
         </ul>
@@ -91,29 +91,24 @@
     <!-- /.sidebar -->
   </aside>
 
+{{--  ============================================  Sidebar Left End  ============================================  --}}
+
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
 
     <!-- Main content -->
     <section class="content">
-
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Title</h3>
-{{-- 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-          </div> --}}
         </div>
         <div class="card-body">
-          {{-- Start creating your amazing application!  --}}
-            {{-- <home></home> --}}
+          
             <admin-main></admin-main>
+        
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
