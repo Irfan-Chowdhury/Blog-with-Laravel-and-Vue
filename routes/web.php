@@ -23,3 +23,9 @@ Route::get('/{anypath}', 'HomeController@index')->where('path','.*');  //use for
 // Route::get('/dashboard', 'HomeController@index')->name('home');
 
 Route::get('/post', 'PostController@all_post');
+
+//--Category--
+
+Route::post('/add-category', 'CategoryController@add_category');
+
+

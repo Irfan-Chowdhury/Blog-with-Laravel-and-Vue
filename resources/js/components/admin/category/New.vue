@@ -7,11 +7,11 @@
                     <div class="card-header">
                         <h3 class="card-title text-center">Add New Category</h3>
                     </div>
-                    <form role="form">
+                    <form role="form" @click.prevent="addCategory()">
                         <div class="card-body">
                         <div class="form-group">
                             <label for="category_name">Category Name</label>
-                            <input type="category_name" class="form-control" id="category_name" placeholder="Enter Category Name">
+                            <input name="category_name" v-model="form.category_name" type="text" class="form-control" id="category_name" placeholder="Enter Category Name">
                         </div>
                         </div>
                         <!-- /.card-body -->
@@ -29,7 +29,23 @@
 
 <script>
 export default {
-    name:"New"
+    name:"New",
+    data(){
+        return {
+            form:new Form({
+                category_name:'',
+            })
+        }
+    },
+    methods: {
+        addCategory(){
+            //console.log('ok') // for check
+            this.form.post('/add-category')
+            .then(({ data }) => { 
+                console.log(data) 
+            })
+        }
+    },
 }
 </script>
 
