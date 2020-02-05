@@ -12,7 +12,7 @@ class CategoryController extends Controller
         //return $request->all(); //for testing in console
 
         $this->validate($request,[
-            'category_name' => 'required|min:3|max:50'
+            'category_name' => 'unique:categories|required|min:3|max:50'
         ]);
 
         $category = New Category();

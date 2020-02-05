@@ -12,14 +12,14 @@
                         <div class="form-group">
                             <label for="category_name">Category Name</label>
 
-                            <input name="category_name" v-model="form.category_name" type="text" id="category_name" class="form-control"  :class="{ 'is-invalid': form.errors.has('category_name') }"  placeholder="Enter Category Name">
+                            <input name="category_name" v-model="form.category_name" type="text" id="category_name" class="form-control"  :class="{ 'is-invalid': form.errors.has('category_name')}"  placeholder="Enter Category Name">
                             <has-error :form="form" field="category_name"></has-error>
                             
                         </div>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -48,6 +48,12 @@ export default {
             .then(({ data }) => { 
                 // console.log(data) // check in console
                 this.$router.push('category-list') //redirect into category-list after save
+
+                //For Aleart     
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Category Added Successfully'
+                })
             })
         }
     },
