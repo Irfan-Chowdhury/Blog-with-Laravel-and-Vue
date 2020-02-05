@@ -71,12 +71,14 @@
               <p>Dashboard</p>
             </router-link>
           </li>
+
           <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
+            <router-link to="/category-list" class="nav-link"> <!--Router Link -->
               <i class="nav-icon fa fa-th"></i>
                 <p>Category</p>
-            </a>
+            </router-link>
           </li>
+
           <li class="nav-item">
             <router-link to="/post" class="nav-link"> <!--Router Link -->
               <i class="nav-icon fa fa-th"></i>
@@ -91,38 +93,27 @@
     <!-- /.sidebar -->
   </aside>
 
-{{--  ============================================  Sidebar Left End  ============================================  --}}
+{{--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  Sidebar Left End  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  --}}
 
+  
+  
 
+{{--  ============================================  Main Content  ============================================  --}}
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-
-
-    <!-- Main content -->
+<div class="content-wrapper">
+  <!-- Main content -->
     <section class="content">
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-        </div>
-        <div class="card-body">
-          
-            <admin-main></admin-main>
-        
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          Footer
-        </div>
-        <!-- /.card-footer-->
-      </div>
-      <!-- /.card -->
+
+        <admin-main></admin-main>
 
     </section>
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
+{{--  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  Main Content End xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  --}}
+
+
+  
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.0.0-alpha

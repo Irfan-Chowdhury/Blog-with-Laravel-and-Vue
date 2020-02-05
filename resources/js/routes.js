@@ -1,6 +1,6 @@
 
 import AdminHome from './components/admin/AdminHome.vue'
-import ExampleComponent from './components/ExampleComponent.vue'
+import CategoryList from './components/admin/category/List.vue'
 
 export const routes = [
     {
@@ -8,7 +8,7 @@ export const routes = [
         component:AdminHome //must be use same name with import's name
     },
     {
-        path:'/post',  //this is url path
-        component:ExampleComponent //must be use same name with import's name
-    },
+        path:'/category-list',
+        component:CategoryList
+    }
 ]

@@ -1,0 +1,58 @@
+<template>
+    <!-- Main content -->
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h2>Category List</h2>
+
+              <div class="card-tools">
+                  <button class="btn btn-primary">Add New Category</button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-hover text-center">
+                <thead>
+                <tr>
+                  <th>SL</th>
+                  <th>Category Name</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Technology</td>
+                  <td>
+                      <a href="#" class="btn btn-warning mr-1">Edit</a>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                 </td>
+                  <!-- <td>Delete</td> -->
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+</template>
+
+<script>
+export default {
+    name:"List"
+}
+</script>
+
+<style scoped>
+
+</style>>
+
+
+   
