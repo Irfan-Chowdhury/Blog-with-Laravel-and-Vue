@@ -7,7 +7,7 @@
               <h2>Category List</h2>
 
               <div class="card-tools">
-                  <button class="btn btn-primary">Add New Category</button>
+                  <router-link to="add-category" class="btn btn-primary">Add New Category</router-link> <!-- router link -->
               </div>
             </div>
             <!-- /.card-header -->
