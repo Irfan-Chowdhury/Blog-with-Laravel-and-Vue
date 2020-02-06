@@ -28,5 +28,6 @@ Route::get('/post', 'PostController@all_post');
 
 Route::post('/add-category', 'CategoryController@add_category');
 Route::get('/category', 'CategoryController@all_category');
+Route::get('/category/{id}', 'CategoryController@delete_category');
 
 

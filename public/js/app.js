@@ -2035,14 +2035,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
   mounted: function mounted() {
-    return this.$store.dispatch("allCategory");
+    return this.$store.dispatch("allCategory"); //the data in list updated without reload
   },
   computed: {
     getAllCategory: function getAllCategory() {
       return this.$store.getters.getCategory;
     }
   },
-  methods: {}
+  methods: {
+    deleteCategory: function deleteCategory(id) {
+      var _this = this;
+
+      //Alert Message
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          //-------------- in video lecture the part is that after- deleteCategory(id){--------------- 
+          axios.get('/category/' + id).then(function () {
+            _this.$store.dispatch("allCategory"); //after delete- the data in list updated without reload
+            //For Success Alert Message
+
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Category Deleted Successfully'
+            });
+          }); //------------------------------------------ E  N D----------------------------------------
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2107,7 +2136,7 @@ __webpack_require__.r(__webpack_exports__);
 
         // console.log(data) // check in console
         _this.$router.push('category-list'); //redirect into category-list after save
-        //For Aleart     
+        //For Success Alert Message     
 
 
         Toast.fire({
@@ -59280,7 +59309,31 @@ var render = function() {
                       _vm._v(_vm._s(_vm._f("timeformat")(category.created_at)))
                     ]),
                     _vm._v(" "),
-                    _vm._m(1, true)
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-warning mr-1",
+                          attrs: { href: "#" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.deleteCategory(category.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -59306,20 +59359,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-warning mr-1", attrs: { href: "#" } }, [
-        _vm._v("Edit")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-danger", attrs: { href: "#" } }, [
-        _vm._v("Delete")
       ])
     ])
   }
@@ -75644,7 +75683,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBP
  //https://sweetalert2.github.io/#frameworks-integrations
 
 window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a; //for using globaly that means can use with any file
-//Aleart Script
+//Alert of success Script
 
 var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
   toast: true,
@@ -75656,13 +75695,12 @@ var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
     toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
     toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
   }
-}); // Toast.fire({    //-------------->>> this aleart is shown globally if Reload, thats why comment in
+}); // Toast.fire({    //--> this aleart is shown globally if Reload, thats why comment in
 //   icon: 'success',
 //   title: 'Successfully Done'
 // })
 
 window.Toast = Toast; //for using globaly that means can use with any file
-//Sweetalert2 --x--
 //---------------------------- Support Moment Js ---------------------
 
  //This file is separated because of using different time formate

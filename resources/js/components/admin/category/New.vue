@@ -49,7 +49,7 @@ export default {
                 // console.log(data) // check in console
                 this.$router.push('category-list') //redirect into category-list after save
 
-                //For Aleart     
+                //For Success Alert Message     
                 Toast.fire({
                     icon: 'success',
                     title: 'Category Added Successfully'

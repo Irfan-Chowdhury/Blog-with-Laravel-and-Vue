@@ -22,7 +22,7 @@ Vue.component(AlertError.name, AlertError)
 import Swal from 'sweetalert2'  //https://sweetalert2.github.io/#frameworks-integrations
 window.Swal = Swal;  //for using globaly that means can use with any file
 
-//Aleart Script
+//Alert of success Script
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -35,14 +35,12 @@ const Toast = Swal.mixin({
   }
 })
 
-// Toast.fire({    //-------------->>> this aleart is shown globally if Reload, thats why comment in
+// Toast.fire({    //--> this aleart is shown globally if Reload, thats why comment in
 //   icon: 'success',
 //   title: 'Successfully Done'
 // })
 
 window.Toast = Toast //for using globaly that means can use with any file
-
-//Sweetalert2 --x--
 
 
 

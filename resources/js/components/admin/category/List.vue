@@ -28,7 +28,7 @@
                   <td>{{category.created_at | timeformat}}</td>
                   <td>
                       <a href="#" class="btn btn-warning mr-1">Edit</a>
-                      <a href="#" class="btn btn-danger">Delete</a>
+                      <a href="#" @click.prevent="deleteCategory(category.id)" class="btn btn-danger">Delete</a>
                   </td>
                   <!-- <td>Delete</td> -->
                 </tr>
@@ -50,7 +50,7 @@
 export default {
     name:"List",
     mounted() {
-      return this.$store.dispatch("allCategory")
+      return this.$store.dispatch("allCategory") //the data in list updated without reload
     },
     computed: {
         getAllCategory(){
@@ -59,7 +59,37 @@ export default {
         }
     },
     methods: {
-      
+      deleteCategory(id){
+        
+          //Alert Message
+          Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                      if (result.value) {
+                        //-------------- in video lecture the part is that after- deleteCategory(id){--------------- 
+                          axios.get('/category/'+id)
+                              .then(()=>{
+
+                                this.$store.dispatch("allCategory") 
+                            //after delete- the data in list updated without reload
+
+                                //For Success Alert Message
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Category Deleted Successfully'
+                                })
+                            })
+                        //------------------------------------------ E  N D----------------------------------------
+                      }
+                  })
+
+      }
     },
 
 }
