@@ -2,13 +2,9 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue'); 
-//import Vue from 'vue' //or you can use this
+//import Vue from 'vue' //or, 
+window.Vue = require('vue');  // you can use this
 
-import VueRouter from 'vue-router'
-Vue.use(VueRouter) 
-
-import {routes} from './routes';  //'routes' name should be same, see bellow (16 line)
 
 Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default); //'admin-main' this type of name must be small letter
 
@@ -53,13 +49,33 @@ window.Toast = Toast //for using globaly that means can use with any file
 //Sweetalert2 --x--
 
 
+
+//---------------------------- Vue Router ----------------------------
+import VueRouter from 'vue-router'
+Vue.use(VueRouter) 
+
+import {routes} from './routes';  //'routes' name should be same, see bellow (16 line)
+
 const router = new VueRouter({
     routes, // short for `routes: routes`
     mode:'history' //by using this '#' is not show in url 
   })
 
+                
+//---------------------------- Support Vuex ----------------------------
+import Vuex from 'vuex'
+Vue.use(Vuex) 
+
+import storeData from "./store/index";
+
+const store = new Vuex.Store({
+  storeData
+})
+
+
 const app = new Vue({
     el: '#app',
-    router //can access all router after put this here  
+    router, //can access all router after put this here 
+    store
 });
 
