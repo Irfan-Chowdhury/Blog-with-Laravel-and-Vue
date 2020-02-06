@@ -2031,7 +2031,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "List"
+  name: "List",
+  mounted: function mounted() {
+    return this.$store.dispatch("allCategory");
+  },
+  computed: {
+    getAllCategory: function getAllCategory() {
+      return this.$store.getters.getCategory;
+    }
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -41642,7 +41651,32 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered table-hover text-center",
+              attrs: { id: "example2" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.getAllCategory, function(category, index) {
+                  return _c("tr", { key: category.id }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(category.category_name))]),
+                    _vm._v(" "),
+                    _vm._m(1, true)
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ])
       ])
     ])
   ])
@@ -41652,47 +41686,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c(
-        "table",
-        {
-          staticClass: "table table-bordered table-hover text-center",
-          attrs: { id: "example2" }
-        },
-        [
-          _c("thead", [
-            _c("tr", [
-              _c("th", [_vm._v("SL")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Category Name")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("Action")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("td", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Technology")]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  { staticClass: "btn btn-warning mr-1", attrs: { href: "#" } },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-danger", attrs: { href: "#" } },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ])
-        ]
-      )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("SL")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-warning mr-1", attrs: { href: "#" } }, [
+        _vm._v("Edit")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-danger", attrs: { href: "#" } }, [
+        _vm._v("Delete")
+      ])
     ])
   }
 ]
@@ -57999,8 +58014,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/index */ "./resources/js/store/index.js");
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //import Vue from 'vue' //or, 
-
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // you can use this
 
@@ -58045,16 +58059,16 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   routes: _routes__WEBPACK_IMPORTED_MODULE_3__["routes"],
   // short for `routes: routes`
-  mode: 'history' //by using this '#' is not show in url 
+  // mode:'history' //by using this '#' is not show in url 
+  mode: 'hash' //by using this '#' is show in url 
 
 }); //---------------------------- Support Vuex ----------------------------
+//import Vue from 'vue' //or, 
 
 
 Vue.use(vuex__WEBPACK_IMPORTED_MODULE_4__["default"]);
 
-var store = new vuex__WEBPACK_IMPORTED_MODULE_4__["default"].Store({
-  storeData: _store_index__WEBPACK_IMPORTED_MODULE_5__["default"]
-});
+var store = new vuex__WEBPACK_IMPORTED_MODULE_4__["default"].Store(_store_index__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var app = new Vue({
   el: '#app',
   router: router,
@@ -58428,10 +58442,27 @@ var routes = [{
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {}
+  state: {
+    category: []
+  },
+  getters: {
+    getCategory: function getCategory(state) {
+      return state.category;
+    }
+  },
+  actions: {
+    allCategory: function allCategory(context) {
+      axios.get('/category').then(function (response) {
+        // console.log(response.data.categories) //just checking
+        context.commit('categories', response.data.categories); //from controller
+      });
+    }
+  },
+  mutations: {
+    categories: function categories(state, data) {
+      return state.category = data;
+    }
+  }
 });
 
 /***/ }),

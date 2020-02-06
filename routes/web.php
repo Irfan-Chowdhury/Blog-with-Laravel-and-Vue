@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/{anypath}', 'HomeController@index')->where('path','.*');  //use for match both router of Laravel & Vue 
+//Route::get('/{anypath}', 'HomeController@index')->where('path','.*');  //use for match both router of Laravel & Vue 
 
 // Route::get('/dashboard', 'HomeController@index')->name('home');
 
@@ -27,5 +27,6 @@ Route::get('/post', 'PostController@all_post');
 //--Category--
 
 Route::post('/add-category', 'CategoryController@add_category');
+Route::get('/category', 'CategoryController@all_category');
 
 

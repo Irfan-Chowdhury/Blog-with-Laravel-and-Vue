@@ -1,13 +1,9 @@
 
 
 require('./bootstrap');
-
-//import Vue from 'vue' //or, 
 window.Vue = require('vue');  // you can use this
 
-
 Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default); //'admin-main' this type of name must be small letter
-
 
 
 //V-form
@@ -51,6 +47,7 @@ window.Toast = Toast //for using globaly that means can use with any file
 
 
 //---------------------------- Vue Router ----------------------------
+
 import VueRouter from 'vue-router'
 Vue.use(VueRouter) 
 
@@ -58,19 +55,23 @@ import {routes} from './routes';  //'routes' name should be same, see bellow (16
 
 const router = new VueRouter({
     routes, // short for `routes: routes`
-    mode:'history' //by using this '#' is not show in url 
+    // mode:'history' //by using this '#' is not show in url 
+    mode:'hash' //by using this '#' is show in url 
   })
 
                 
 //---------------------------- Support Vuex ----------------------------
+
+//import Vue from 'vue' //or, 
+
 import Vuex from 'vuex'
 Vue.use(Vuex) 
 
 import storeData from "./store/index";
 
-const store = new Vuex.Store({
+const store = new Vuex.Store(
   storeData
-})
+)
 
 
 const app = new Vue({
