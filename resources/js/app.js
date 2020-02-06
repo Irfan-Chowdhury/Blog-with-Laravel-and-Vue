@@ -48,12 +48,8 @@ window.Toast = Toast //for using globaly that means can use with any file
 
 //---------------------------- Support Moment Js ---------------------
 
-// var moment = require('moment'); //or,
-import moment from 'moment'
-
-Vue.filter('timeformat',(arg)=>{
-    return moment(arg).format("MMM Do YYYY") //Feb 3rd 2020
-})
+import {filter} from './filter' 
+//This file is separated because of using different time formate
 
 
 //---------------------------- Vue Router ----------------------------
