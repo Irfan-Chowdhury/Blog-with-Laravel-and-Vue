@@ -6,7 +6,8 @@ window.Vue = require('vue');  // you can use this
 Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default); //'admin-main' this type of name must be small letter
 
 
-//V-form
+//---------------------------- V-form ----------------------------
+
 import { Form, HasError, AlertError } from 'vform'
 
 window.Form = Form; //for using globaly that means can use any file  
@@ -14,11 +15,10 @@ window.Form = Form; //for using globaly that means can use any file
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
-//V-form --x--
 
 
+//---------------------------- Sweetalert2 ----------------------------
 
-//Sweetalert2
 import Swal from 'sweetalert2'  //https://sweetalert2.github.io/#frameworks-integrations
 window.Swal = Swal;  //for using globaly that means can use with any file
 
@@ -44,6 +44,16 @@ window.Toast = Toast //for using globaly that means can use with any file
 
 //Sweetalert2 --x--
 
+
+
+//---------------------------- Support Moment Js ---------------------
+
+// var moment = require('moment'); //or,
+import moment from 'moment'
+
+Vue.filter('timeformat',(arg)=>{
+    return moment(arg).format("MMM Do YYYY") //Feb 3rd 2020
+})
 
 
 //---------------------------- Vue Router ----------------------------

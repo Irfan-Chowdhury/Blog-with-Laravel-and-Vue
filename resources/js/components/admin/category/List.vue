@@ -17,6 +17,7 @@
                 <tr>
                   <th>SL</th>
                   <th>Category Name</th>
+                  <th>Date</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -24,6 +25,7 @@
                 <tr v-for="(category,index) in getAllCategory" :key="category.id">
                   <td>{{index+1}}</td>
                   <td>{{ category.category_name }}</td>
+                  <td>{{category.created_at | timeformat}}</td>
                   <td>
                       <a href="#" class="btn btn-warning mr-1">Edit</a>
                       <a href="#" class="btn btn-danger">Delete</a>
