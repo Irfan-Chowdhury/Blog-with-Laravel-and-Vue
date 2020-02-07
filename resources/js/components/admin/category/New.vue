@@ -47,7 +47,7 @@ export default {
             this.form.post('/add-category')
             .then(({ data }) => { 
                 // console.log(data) // check in console
-                this.$router.push('category-list') //redirect into category-list after save
+                this.$router.push('/category-list') //redirect into category-list after save
 
                 //For Success Alert Message     
                 Toast.fire({

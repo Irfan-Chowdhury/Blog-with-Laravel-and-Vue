@@ -2016,7 +2016,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Edit",
   mounted: function mounted() {
@@ -2035,6 +2034,25 @@ __webpack_require__.r(__webpack_exports__);
         category_name: ''
       })
     };
+  },
+  methods: {
+    updateCategory: function updateCategory() {
+      var _this2 = this;
+
+      //console.log('ok') // for check, or
+      this.form.post("/update-category/".concat(this.$route.params.categoryid)) //categoryid->from routes.js -//after post by id then next line
+      .then(function (response) {
+        // console.log(data) // check in console
+        _this2.$router.push('/category-list'); //redirect into category-list after save
+        //For Success Alert Message     
+
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Category Updated Successfully'
+        });
+      });
+    }
   }
 });
 
@@ -2203,7 +2221,7 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
 
         // console.log(data) // check in console
-        _this.$router.push('category-list'); //redirect into category-list after save
+        _this.$router.push('/category-list'); //redirect into category-list after save
         //For Success Alert Message     
 
 
@@ -59340,43 +59358,72 @@ var render = function() {
         _c("div", { staticClass: "mt-5 card card-primary" }, [
           _vm._m(0),
           _vm._v(" "),
-          _c("form", { attrs: { role: "form" } }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "category_name" } }, [
-                  _vm._v("Edit Category Name")
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.category_name,
-                      expression: "form.category_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    name: "category_name",
-                    id: "category_name",
-                    type: "text"
-                  },
-                  domProps: { value: _vm.form.category_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+          _c(
+            "form",
+            {
+              attrs: { role: "form" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.updateCategory()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "category_name" } }, [
+                      _vm._v("Edit Category Name")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.category_name,
+                          expression: "form.category_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: {
+                        "is-invalid": _vm.form.errors.has("category_name")
+                      },
+                      attrs: {
+                        type: "text",
+                        name: "category_name",
+                        id: "category_name",
+                        placeholder: "Enter Category Name"
+                      },
+                      domProps: { value: _vm.form.category_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "category_name",
+                            $event.target.value
+                          )
+                        }
                       }
-                      _vm.$set(_vm.form, "category_name", $event.target.value)
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _vm._m(1)
-          ])
+                    }),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "category_name" }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
