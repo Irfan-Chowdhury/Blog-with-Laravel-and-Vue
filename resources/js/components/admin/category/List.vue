@@ -27,7 +27,9 @@
                   <td>{{ category.category_name }}</td>
                   <td>{{category.created_at | timeformat}}</td>
                   <td>
-                      <a href="#" class="btn btn-warning mr-1">Edit</a>
+                      <!-- <router-link :to="`/edit-category/${category.id}`" class="btn btn-warning mr-1">Edit</router-link> --> <!--or, --> 
+                      <router-link :to="'/edit-category/'+category.id" class="btn btn-warning mr-1">Edit</router-link>
+                      
                       <a href="#" @click.prevent="deleteCategory(category.id)" class="btn btn-danger">Delete</a>
                   </td>
                   <!-- <td>Delete</td> -->
@@ -73,7 +75,7 @@ export default {
                 }).then((result) => {
                       if (result.value) {
                         //-------------- in video lecture the part is that after- deleteCategory(id){--------------- 
-                          axios.get('/category/'+id)
+                          axios.get('/category/'+id) //when the request has passed then go next step
                               .then(()=>{
 
                                 this.$store.dispatch("allCategory") 
