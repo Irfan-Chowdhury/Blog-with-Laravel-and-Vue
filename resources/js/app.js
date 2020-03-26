@@ -50,6 +50,15 @@ import {filter} from './filter'
 //This file is separated because of using different time formate
 
 
+
+//---------------------------- Mark Down Editor ----------------------------
+
+import 'v-markdown-editor/dist/v-markdown-editor.css';
+import Editor from 'v-markdown-editor'
+
+Vue.use(Editor); // global register
+
+
 //---------------------------- Vue Router ----------------------------
 
 import VueRouter from 'vue-router'

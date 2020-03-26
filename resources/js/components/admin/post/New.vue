@@ -16,7 +16,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description"  rows="3" v-model="form.description" class="form-control"  :class="{ 'is-invalid': form.errors.has('description')}" placeholder="Type Post Description..." ></textarea>
+                                <!-- <textarea name="description" id="description"  rows="3" v-model="form.description" class="form-control"  :class="{ 'is-invalid': form.errors.has('description')}" placeholder="Type Post Description..." ></textarea> -->
+                                <markdown-editor :v-model="form.description"></markdown-editor>  <!--website এ v-model জায়গায় :options লিখা আছে-->
+                               
                                 <has-error :form="form" field="description"></has-error>
                             </div>
                             <div class="form-group">
