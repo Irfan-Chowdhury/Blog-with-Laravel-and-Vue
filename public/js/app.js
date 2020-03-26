@@ -2391,6 +2391,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "New",
   data: function data() {
@@ -2415,7 +2416,26 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getCategory;
     }
   },
-  methods: {}
+  methods: {
+    changePhoto: function changePhoto(event) {
+      var _this = this;
+
+      //    console.log(event)
+      // var file = event.target.files[0];
+      var file = event.target.files[0]; //'let' is use in ES6 instead of 'var'
+
+      var reader = new FileReader(); // reader.onload = function(e) {
+
+      reader.onload = function (event) {
+        //ES6 formate 
+        //console.log(e.target.result)
+        _this.form.photo = event.target.result; //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
+      };
+
+      reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
+      // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+    }
+  }
 });
 
 /***/ }),
@@ -60262,7 +60282,23 @@ var render = function() {
                     _c("input", {
                       staticClass: "form-control",
                       class: { "is-invalid": _vm.form.errors.has("photo") },
-                      attrs: { type: "file", name: "photo" }
+                      attrs: { type: "file", name: "photo" },
+                      on: {
+                        change: function($event) {
+                          return _vm.changePhoto($event)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: {
+                        src: _vm.form.photo,
+                        alt: "",
+                        height: "100px",
+                        width: "100px"
+                      }
                     }),
                     _vm._v(" "),
                     _c("has-error", {

@@ -29,7 +29,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="photo">Upload Photo</label>
-                                <input type="file" name="photo" class="form-control" :class="{'is-invalid': form.errors.has('photo')}">
+                                <input type="file" @change ="changePhoto($event)" name="photo" class="form-control" :class="{'is-invalid': form.errors.has('photo')}"> <br>
+                                <img :src="form.photo" alt="" height="100px" width="100px">
                                 <has-error :form="form" field="photo"></has-error>
                             </div>
                         </div>
@@ -68,7 +69,23 @@
             }
         },
         methods:{
-           
+           changePhoto(event){
+            //    console.log(event)
+
+                // var file = event.target.files[0];
+                let file = event.target.files[0]; //'let' is use in ES6 instead of 'var'
+                
+                let reader = new FileReader();
+                
+                // reader.onload = function(e) {
+                reader.onload = event => { //ES6 formate 
+                    //console.log(e.target.result)
+                    this.form.photo = event.target.result  //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
+                };
+                reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
+
+                // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+           }
         },
     }
 </script>
