@@ -7,7 +7,7 @@
               <h2>Post List</h2>
 
               <div class="card-tools">
-                  <a href="#" class="btn btn-primary">Add New Post</a> <!-- router link -->
+                  <router-link to="/add-post" class="btn btn-primary">Add New Post</router-link> <!-- router link -->
               </div>
             </div>
             <!-- /.card-header -->
