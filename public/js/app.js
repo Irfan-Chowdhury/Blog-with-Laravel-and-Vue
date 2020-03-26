@@ -4884,6 +4884,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "New",
   data: function data() {
@@ -4891,7 +4894,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: new Form({
         user_id: '',
-        category_id: '',
+        category_id: '--Select Category--',
         title: '',
         description: '',
         photo: ''
@@ -4926,6 +4929,25 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
       // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+    },
+    addNewPost: function addNewPost() {
+      var _this2 = this;
+
+      //console.log(this.form.description)
+      this.form.post('/add-post').then(function (_ref) {
+        var data = _ref.data;
+
+        //data টা না লিখলেও সমস্যা নাই, console এ টেস্টিং এর জন্য দেয়া হইছিল  
+        // console.log(data) // check in console
+        _this2.$router.push('/post-list'); //redirect into category-list after save
+        //For Success Alert Message     
+
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Post Added Successfully'
+        });
+      });
     }
   }
 });
@@ -82964,7 +82986,7 @@ var render = function() {
             {
               attrs: { role: "form" },
               on: {
-                click: function($event) {
+                submit: function($event) {
                   $event.preventDefault()
                   return _vm.addCategory()
                 }
@@ -83251,15 +83273,23 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }),
+      _c("div", { staticClass: "col-md-1" }),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-8" }, [
+      _c("div", { staticClass: "col-md-10" }, [
         _c("div", { staticClass: "mt-5 card card-primary" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
             "form",
-            { attrs: { role: "form", enctype: "multipart/form-data" } },
+            {
+              attrs: { role: "form", enctype: "multipart/form-data" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.addNewPost()
+                }
+              }
+            },
             [
               _c("div", { staticClass: "card-body" }, [
                 _c(
@@ -83312,7 +83342,13 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("markdown-editor", {
-                      attrs: { "v-model": _vm.form.description }
+                      model: {
+                        value: _vm.form.description,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "description", $$v)
+                        },
+                        expression: "form.description"
+                      }
                     }),
                     _vm._v(" "),
                     _c("has-error", {
@@ -83367,9 +83403,7 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("--Select Category--")
-                        ]),
+                        _c("option", [_vm._v("--Select Category--")]),
                         _vm._v(" "),
                         _vm._l(_vm.getAllCategory, function(category) {
                           return _c(
@@ -83436,7 +83470,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-2" })
+      _c("div", { staticClass: "col-md-1" })
     ])
   ])
 }

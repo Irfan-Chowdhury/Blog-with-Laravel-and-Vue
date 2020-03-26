@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <h3 class="card-title text-center">Add New Category</h3>
                     </div>
-                    <form role="form" @click.prevent="addCategory()">
+                    <form role="form" @submit.prevent="addCategory()">
                         <div class="card-body">
                         <div class="form-group">
                             <label for="category_name">Category Name</label>
