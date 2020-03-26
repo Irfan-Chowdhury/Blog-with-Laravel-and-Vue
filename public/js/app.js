@@ -2318,7 +2318,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "List",
+  mounted: function mounted() {
+    this.$store.dispatch('allPost'); //--postList-step:1 -- || 'allPost' for action in index.js //in video write 'getAllPost'
+  },
+  computed: {
+    getAllPost: function getAllPost() {
+      //--postList-step:6 --  || from index.js 'postList-step-5' || in video wrote 'allPost'
+      return this.$store.getters.getPost; // in video wrote 'getAllPost'
+    }
+  },
+  methods: {}
+});
 
 /***/ }),
 
@@ -59862,90 +59875,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "table",
+            {
+              staticClass: "table table-bordered table-hover text-center",
+              attrs: { id: "example2" }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.getAllPost, function(post, index) {
+                  return _c("tr", { key: post.id }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(post.user_id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(post.category_id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(post.title))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(post.description))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("img", {
+                        attrs: {
+                          src: post.photo,
+                          alt: "",
+                          srcset: "",
+                          height: "80px",
+                          width: "80"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2, true)
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h2", [_vm._v("Post List")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
-              _c(
-                "a",
-                { staticClass: "btn btn-primary", attrs: { href: "#" } },
-                [_vm._v("Add New Post")]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "table",
-              {
-                staticClass: "table table-bordered table-hover text-center",
-                attrs: { id: "example2" }
-              },
-              [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v("SL")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("User")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Category")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Title")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Description")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Photo")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v("Action")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("td", [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("User Name")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Category Name")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Post Title")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Post Description")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Photo")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-warning mr-1",
-                          attrs: { href: "#" }
-                        },
-                        [_vm._v("Edit")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        { staticClass: "btn btn-danger", attrs: { href: "#" } },
-                        [_vm._v("Delete")]
-                      )
-                    ])
-                  ])
-                ])
-              ]
-            )
-          ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h2", [_vm._v("Post List")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c("a", { staticClass: "btn btn-primary", attrs: { href: "#" } }, [
+          _vm._v("Add New Post")
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("SL")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("User")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-warning mr-1", attrs: { href: "#" } }, [
+        _vm._v("Edit")
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn btn-danger", attrs: { href: "#" } }, [
+        _vm._v("Delete")
       ])
     ])
   }
@@ -76913,24 +76943,43 @@ var routes = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    category: []
+    category: [],
+    post: [] //--postList-step:4--
+
   },
   getters: {
     getCategory: function getCategory(state) {
       return state.category;
+    },
+    getPost: function getPost(state) {
+      //--postList-step:5 -- || then goto List.vue || in video wrote 'getAllPost'
+      return state.post;
     }
   },
   actions: {
     allCategory: function allCategory(context) {
-      axios.get('/category').then(function (response) {
+      axios.get('/category') //match with route in web.php
+      .then(function (response) {
         // console.log(response.data.categories) //just checking
         context.commit('categories', response.data.categories); //from controller
+      });
+    },
+    allPost: function allPost(context) {
+      //--postList-step:2 -- || the 'allPost' come from List.vue
+      axios.get('/post') //match with route in web.php
+      .then(function (response) {
+        //console.log(response.data) //just checking
+        context.commit('posts', response.data.posts); //in video wrote 'allPost' instead of || here the 'posts' of 'response.data.posts' is the value of - 'posts'  ('posts' => $posts [the left]) from post controller & use for retrive data through this.
       });
     }
   },
   mutations: {
     categories: function categories(state, data) {
       return state.category = data;
+    },
+    posts: function posts(state, data) {
+      //-- postList-step:3 -- || in video wrote 'allPost'|| in video wrote 'payload' instead of 'data' || এখানে data = response.data.posts
+      return state.post = data; //এখানে post হলো উপরের 4 লাইনের post:[] টা । post এ গিয়ে data  ঢুকবে/এসাইন হবে
     }
   }
 });

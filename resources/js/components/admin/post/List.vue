@@ -25,13 +25,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>User Name</td>
-                  <td>Category Name</td>
-                  <td>Post Title</td>
-                  <td>Post Description</td>
-                  <td>Photo</td>
+                <tr v-for="(post,index) in getAllPost" :key="post.id" >
+                  <!-- {{getAllPost}} -->
+                  <td>{{index+1}}</td>
+                  <td>{{post.user_id}}</td>
+                  <td>{{post.category_id}}</td>
+                  <td>{{post.title}}</td>
+                  <td>{{post.description}}</td>
+                  <td><img :src="post.photo" alt="" srcset="" height="80px" width="80"></td>
                   <td>                      
                       <a href="#" class="btn btn-warning mr-1">Edit</a>
                       <a href="#" class="btn btn-danger">Delete</a>
@@ -54,7 +55,18 @@
 
 <script>
     export default {
-        
+        name:"List",
+        mounted(){
+          this.$store.dispatch('allPost') //--postList-step:1 -- || 'allPost' goto action in index.js || in video write 'getAllPost'
+        },
+        computed:{
+          getAllPost(){ //--postList-step:6 --  || from index.js 'postList-step-5' || in video wrote 'allPost'
+            return this.$store.getters.getPost // in video wrote 'getAllPost'
+          }
+        },
+        methods:{
+
+        }
     }
 </script>
 
