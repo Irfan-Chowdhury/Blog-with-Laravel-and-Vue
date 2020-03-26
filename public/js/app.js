@@ -2322,7 +2322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
   mounted: function mounted() {
-    this.$store.dispatch('allPost'); //--postList-step:1 -- || 'allPost' for action in index.js //in video write 'getAllPost'
+    this.$store.dispatch('allPost'); //--postList-step:1 -- || 'allPost' goto action in index.js || in video write 'getAllPost'
   },
   computed: {
     getAllPost: function getAllPost() {
@@ -59896,13 +59896,27 @@ var render = function() {
                   return _c("tr", { key: post.id }, [
                     _c("td", [_vm._v(_vm._s(index + 1))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(post.user_id))]),
+                    post.user
+                      ? _c("td", [_vm._v(_vm._s(post.user.name))])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(post.category_id))]),
+                    post.category
+                      ? _c("td", [_vm._v(_vm._s(post.category.category_name))])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(post.title))]),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(_vm._f("shortlength")(post.title, 20, "..."))
+                      )
+                    ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(post.description))]),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("shortlength")(post.description, 40, "...")
+                        )
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c("img", {
@@ -76873,6 +76887,11 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('timeformat', function (arg) {
   return moment__WEBPACK_IMPORTED_MODULE_1___default()(arg).format("MMM Do YYYY"); //Feb 3rd 2020
+}); //Post
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('shortlength', function (text, length, suffix) {
+  //from List.vue 
+  return text.substring(0, length) + suffix; //0 to length(40) character & 'suffix' indicate '...'
 });
 
 /***/ }),
@@ -76944,7 +76963,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     category: [],
-    post: [] //--postList-step:4--
+    post: [] //--postList-step:4--  || use for "postList-step:3" 
 
   },
   getters: {

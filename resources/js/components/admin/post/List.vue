@@ -28,10 +28,10 @@
                 <tr v-for="(post,index) in getAllPost" :key="post.id" >
                   <!-- {{getAllPost}} -->
                   <td>{{index+1}}</td>
-                  <td>{{post.user_id}}</td>
-                  <td>{{post.category_id}}</td>
-                  <td>{{post.title}}</td>
-                  <td>{{post.description}}</td>
+                  <td v-if="post.user">{{post.user.name}}</td> <!--প্রথমে post.user নামে কিছু আছে কিনা চেক করবে (এই কন্ডিশনটা না লিখলে এরর শো করবেনা)-->
+                  <td v-if="post.category">{{post.category.category_name}}</td> <!--same as like post.user-->
+                  <td>{{post.title |shortlength(20,'...')}}</td>
+                  <td>{{post.description | shortlength(40,'...')}}</td>  <!-- goto filter.js || first 30 character & then show ... -->
                   <td><img :src="post.photo" alt="" srcset="" height="80px" width="80"></td>
                   <td>                      
                       <a href="#" class="btn btn-warning mr-1">Edit</a>
