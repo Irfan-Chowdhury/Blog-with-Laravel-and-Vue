@@ -1,7 +1,7 @@
 <template>
     <!-- Main content -->
-      <div class="row">
-        <div class="col-12">
+      <div class="row justify-content-around">
+        <div class="col-8">
           <div class="card">
             <div class="card-header">
               <h2>Category List</h2>

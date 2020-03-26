@@ -80,7 +80,7 @@
           </li>
 
           <li class="nav-item">
-            <router-link to="/post" class="nav-link"> <!--Router Link -->
+            <router-link to="/post-list" class="nav-link"> <!--Router Link -->
               <i class="nav-icon fa fa-th"></i>
                 <p>Post</p>
             </router-link >
