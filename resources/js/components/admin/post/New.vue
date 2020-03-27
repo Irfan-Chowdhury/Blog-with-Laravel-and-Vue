@@ -18,7 +18,7 @@
 
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <markdown-editor v-model="form.description"></markdown-editor>  <!--website এ v-model জায়গায় :options লিখা আছে-->
+                                <markdown-editor v-model="form.description" :class="{ 'is-invalid': form.errors.has('description')}"></markdown-editor>  <!--website এ v-model জায়গায় :options লিখা আছে-->
                                 <has-error :form="form" field="description"></has-error>
                             </div>
 

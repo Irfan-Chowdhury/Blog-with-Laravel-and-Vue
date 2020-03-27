@@ -1,12 +1,126 @@
 <template>
-    <div>
-        <h2>Edit Component</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="mt-5 card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title text-center">Edit Post</h3>
+                    </div>
+                    <form role="form" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" name="title" id="title" v-model="form.title" class="form-control"  :class="{ 'is-invalid': form.errors.has('title')}">
+                                <has-error :form="form" field="title"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <markdown-editor v-model="form.description" :class="{ 'is-invalid': form.errors.has('description')}"></markdown-editor> <!--website এ v-model জায়গায় :options লিখা আছে-->
+                                <has-error :form="form" field="description"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category_id">Category</label>
+                                <select v-model="form.category_id" name="category_id" class="form-control" id="categoryId" :class="{ 'is-invalid': form.errors.has('category_id')}">
+                                    <option>--Select Category--</option>
+                                    <option v-for="category in getAllCategory" :value="category.id" :key="category.id">{{category.category_name}}</option>
+                                  </select>
+                                <has-error :form="form" field="category_id"></has-error>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="photo">Upload Photo</label>
+                                <input type="file" @change="changePhoto($event)" name="photo" class="form-control" :class="{'is-invalid': form.errors.has('photo')}"> <br>
+                                <img :src="updateImage()" height="100px" width="100px">
+                                <has-error :form="form" field="photo"></has-error>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        
+        name:"Edit-Post",
+        data(){  //==== show-data-by-id: step-1 ===
+            return {
+                form:new Form({
+                    title:'',
+                    description:'',
+                    category_id:'',
+                    photo:'',
+                })
+            }
+        },
+        mounted(){ //==== show-data-by-id: step-4 ====
+                            // --------if we want we can write in here this "axios" line---------
+                    // axios.get(`/edit-post/${this.$route.params.postid}`) 
+                    // .then((response)=>{
+                    //     this.form.fill(response.data.post) 
+                    // }),
+            this.$store.dispatch('allCategory'); //this is load the all category data when stay/click in "Add New Post" page
+        },
+        created(){ //==== show-data-by-id: step-2 ====
+            axios.get(`/edit-post/${this.$route.params.postid}`) //here 'postid' from routes.js
+            .then((response)=>{
+                this.form.fill(response.data.post) //the 'post' from PostController-[edit_post] 
+            })
+        },
+        computed:{ //==== show-data-by-id: step-3 ====
+            getAllCategory(){ //--Post-Create Step:3-- || we just reuse this method
+              return this.$store.getters.getCategory   
+            }
+        },
+        methods:{
+            changePhoto(event){ //==== show-data-by-id: step-5 ====
+                //console.log(event)
+                let file = event.target.files[0]; //'let' is use in ES6 instead of 'var'
+                //console.log(file)
+                if (file.size>1048576) //1MB = 1048576
+                { 
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'File Size should be less then 1MB',
+                        //footer: '<a href>Why do I have this issue?</a>'
+                    })
+                } 
+                else 
+                {
+                    let reader = new FileReader();
+                    reader.onload = event => { //ES6 formate 
+                        this.form.photo = event.target.result  //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
+                        console.log(event.target.result)
+                    };
+                    reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
+                }
+                
+                // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+           },
+           updateImage(){ //==== show-data-by-id: step-6 ====
+                let img = this.form.photo;
+                if (img.length>100) 
+                {
+                    return this.form.photo; //as like the "ourImage(post.photo)" in List
+                }
+                else
+                {
+                    return `Upload_Image/${this.form.photo}` //remember in difference betwn `` & '' sign 
+                }
+            }
+        }
     }
 </script>
 

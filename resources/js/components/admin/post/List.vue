@@ -34,8 +34,8 @@
                   <td>{{post.description | shortlength(40,'...')}}</td>  <!-- goto filter.js || first 30 character & then show ... -->
                   <!-- <td><img :src="post.photo" alt="" srcset="" height="80px" width="80"></td> --> <!--Check post controller-->
                   <td><img :src="ourImage(post.photo)" alt="" srcset="" height="80px" width="80"></td>
-                  <td>                      
-                      <a href="#" class="btn btn-warning mr-1">Edit</a>
+                  <td>
+                      <router-link :to="'/edit-post/'+post.id" class="btn btn-info text-light mr-1">Edit</router-link>                      
                       <a href="#" @click.prevent="deletePost(post.id)" class="btn btn-danger">Delete</a>
                   </td>
                   <!-- <td>Delete</td> -->
