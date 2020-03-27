@@ -4809,6 +4809,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
   mounted: function mounted() {
@@ -4820,7 +4821,40 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getPost; // in video wrote 'getAllPost'
     }
   },
-  methods: {}
+  methods: {
+    ourImage: function ourImage(img) {
+      return "Upload_Image/" + img;
+    },
+    deletePost: function deletePost(id) {
+      var _this = this;
+
+      //Alert Message
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          //----------------------------------- Start --------------------------------- 
+          axios.get('/delete-post/' + id) //match with route in web.php || when the request has passed then go next step
+          .then(function () {
+            _this.$store.dispatch("allPost"); //after delete- the data in list updated without reload
+            //For Success Alert Message
+
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Post Deleted Successfully'
+            });
+          }); //------------------------------------------ E  N D----------------------------------------
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -83202,7 +83236,7 @@ var render = function() {
                     _c("td", [
                       _c("img", {
                         attrs: {
-                          src: post.photo,
+                          src: _vm.ourImage(post.photo),
                           alt: "",
                           srcset: "",
                           height: "80px",
@@ -83211,7 +83245,31 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _vm._m(1, true)
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-warning mr-1",
+                          attrs: { href: "#" }
+                        },
+                        [_vm._v("Edit")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.deletePost(post.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -83243,20 +83301,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Photo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-warning mr-1", attrs: { href: "#" } }, [
-        _vm._v("Edit")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-danger", attrs: { href: "#" } }, [
-        _vm._v("Delete")
       ])
     ])
   }

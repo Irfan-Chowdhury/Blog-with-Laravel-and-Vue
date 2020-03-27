@@ -32,10 +32,11 @@
                   <td v-if="post.category">{{post.category.category_name}}</td> <!--same as like post.user-->
                   <td>{{post.title |shortlength(20,'...')}}</td>
                   <td>{{post.description | shortlength(40,'...')}}</td>  <!-- goto filter.js || first 30 character & then show ... -->
-                  <td><img :src="post.photo" alt="" srcset="" height="80px" width="80"></td>
+                  <!-- <td><img :src="post.photo" alt="" srcset="" height="80px" width="80"></td> --> <!--Check post controller-->
+                  <td><img :src="ourImage(post.photo)" alt="" srcset="" height="80px" width="80"></td>
                   <td>                      
                       <a href="#" class="btn btn-warning mr-1">Edit</a>
-                      <a href="#" class="btn btn-danger">Delete</a>
+                      <a href="#" @click.prevent="deletePost(post.id)" class="btn btn-danger">Delete</a>
                   </td>
                   <!-- <td>Delete</td> -->
                 </tr>
@@ -65,7 +66,37 @@
           }
         },
         methods:{
-
+          ourImage(img){
+            return "Upload_Image/"+img;
+          },
+          deletePost(id)
+          {
+            //Alert Message
+            Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                  }).then((result) => {
+                    if (result.value) {
+                      //----------------------------------- Start --------------------------------- 
+                        axios.get('/delete-post/'+id) //match with route in web.php || when the request has passed then go next step
+                            .then(()=>{
+                              this.$store.dispatch("allPost") //after delete- the data in list updated without reload
+                          
+                              //For Success Alert Message
+                              Toast.fire({
+                                  icon: 'success',
+                                  title: 'Post Deleted Successfully'
+                              })
+                          })
+                      //------------------------------------------ E  N D----------------------------------------
+                    }
+                })
+          }
         }
     }
 </script>

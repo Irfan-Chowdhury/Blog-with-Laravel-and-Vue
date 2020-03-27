@@ -7,6 +7,7 @@ use App\Post;
 use App\Category;
 use Auth;
 use Image;
+use File;
 class PostController extends Controller
 {
     public function all_post()
@@ -47,7 +48,25 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
         $post->title       = $request->title;
         $post->description = $request->description;
-        $post->photo       = "Upload_Image/".$name;
+        // $post->photo       = "Upload_Image/".$name;  //shortcut & check post-list's comment of image line
+        $post->photo       = $name; //good practice
         $post->save();
+    }
+
+    public function delete_post($id)
+    {
+        $post = Post::find($id);
+
+        $image_path = public_path()."/Upload_Image/";
+        $image      = $image_path . $post->photo; //concate
+
+        // if (File::exists($image)) //must be declare "use File" in top 
+        // {
+        //     File::delete($image);
+        // }
+        if (file_exists($image)) {
+            @unlink($image);
+        }
+        $post->delete();
     }
 }
