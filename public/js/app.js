@@ -4867,6 +4867,22 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return "Upload_Image/".concat(this.form.photo); //remember in difference betwn `` & '' sign 
       }
+    },
+    updatePost: function updatePost() {
+      var _this3 = this;
+
+      this.form.post("/update-post/".concat(this.$route.params.postid)) //match with web.php || postid->from routes.js -//after post by id then next line
+      .then(function (response) {
+        // console.log(data) // check in console
+        _this3.$router.push('/post-list'); //redirect into post-list after save
+        //For Success Alert Message     
+
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Post Updated Successfully'
+        });
+      });
     }
   }
 });
@@ -83282,7 +83298,15 @@ var render = function() {
           _vm._v(" "),
           _c(
             "form",
-            { attrs: { role: "form", enctype: "multipart/form-data" } },
+            {
+              attrs: { role: "form", enctype: "multipart/form-data" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.updatePost()
+                }
+              }
+            },
             [
               _c("div", { staticClass: "card-body" }, [
                 _c(

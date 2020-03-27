@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <h3 class="card-title text-center">Edit Post</h3>
                     </div>
-                    <form role="form" enctype="multipart/form-data">
+                    <form role="form" @submit.prevent="updatePost()" enctype="multipart/form-data">
                         <div class="card-body">
 
                             <div class="form-group">
@@ -119,7 +119,21 @@
                 {
                     return `Upload_Image/${this.form.photo}` //remember in difference betwn `` & '' sign 
                 }
-            }
+            },
+            updatePost(){
+                this.form.post(`/update-post/${this.$route.params.postid}`) //match with web.php || postid->from routes.js -//after post by id then next line
+                .then((response) => { 
+                    // console.log(data) // check in console
+                    this.$router.push('/post-list') //redirect into post-list after save
+
+                    //For Success Alert Message     
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Post Updated Successfully'
+                    })
+                })
+            },
+
         }
     }
 </script>

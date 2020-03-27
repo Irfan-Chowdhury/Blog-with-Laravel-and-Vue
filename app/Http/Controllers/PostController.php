@@ -81,6 +81,42 @@ class PostController extends Controller
 
     public function update_post(Request $request, $id)
     {
+        $this->validate($request,[ 
+            'title'       => 'required|min:3|max:50',
+            'description' => 'required',
+            'category_id' => 'required',
+            // 'photo'       => 'required'
+        ]);
 
+        $post = Post::find($id);
+        
+
+        if ($request->photo!=$post->photo) 
+        {   
+            $stringPosition = strpos($request->photo,';'); //ধরি "data:image/jpeg;" ; এর আগ পর্যন্ত পজিশন নিবে মানে = "data:image/jpeg"
+            $subString      = substr($request->photo,0,$stringPosition); //ঐ photo এর 0 to stringPosition পর্যন্ত স্ট্রিং জোড়া দিবে
+            $extention      = explode('/',$subString)[1]; // "[0]=> data:image" / "[1]=>jpeg" আর এখানে যাস্ট extention টাই নিবে ।
+            $name           = time().".".$extention;      // randomly(number) generate a unique name with extention
+            $upload_path    = public_path()."/Upload_Image/";
+            $image          = Image::make($request->photo)->resize(200,200); 
+            $database_image = $upload_path.$post->photo;
+            $image->save($upload_path.$name); 
+
+            if (file_exists($database_image)) 
+            {
+                @unlink($database_image); 
+            }
+        }
+        else 
+        {
+            $name = $post->photo;
+        }
+
+        $post->user_id     = Auth::user()->id;
+        $post->category_id = $request->category_id;
+        $post->title       = $request->title;
+        $post->description = $request->description;
+        $post->photo       = $name; 
+        $post->update();
     }
 }

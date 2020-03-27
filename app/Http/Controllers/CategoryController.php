@@ -45,4 +45,16 @@ class CategoryController extends Controller
             'category' => $category
         ],200);
     }
+
+    public function update_category(Request $request, $id) // skip it in this commit
+    {
+        $this->validate($request,[
+            'category_name' => 'unique:categories|required|min:3|max:50'
+        ]);
+
+        //return $id; //for testing
+        $category = Category::find($id);
+        $category->category_name = $request->category_name;
+        $category->save();
+    }   
 }
