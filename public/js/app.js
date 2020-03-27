@@ -4915,20 +4915,31 @@ __webpack_require__.r(__webpack_exports__);
     changePhoto: function changePhoto(event) {
       var _this = this;
 
-      //    console.log(event)
-      // var file = event.target.files[0];
+      //console.log(event)
       var file = event.target.files[0]; //'let' is use in ES6 instead of 'var'
+      //console.log(file)
 
-      var reader = new FileReader(); // reader.onload = function(e) {
+      if (file.size > 1048576) //1MB = 1048576
+        {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'File Size should be less then 1MB' //footer: '<a href>Why do I have this issue?</a>'
 
-      reader.onload = function (event) {
-        //ES6 formate 
-        //console.log(e.target.result)
-        _this.form.photo = event.target.result; //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
-      };
+          });
+        } else {
+        var reader = new FileReader();
 
-      reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
-      // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+        reader.onload = function (event) {
+          //ES6 formate 
+          _this.form.photo = event.target.result; //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
+
+          console.log(event.target.result);
+        };
+
+        reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
+      } // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
+
     },
     addNewPost: function addNewPost() {
       var _this2 = this;

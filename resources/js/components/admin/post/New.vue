@@ -75,20 +75,28 @@
         },
         methods:{
            changePhoto(event){
-            //    console.log(event)
-
-                // var file = event.target.files[0];
+                //console.log(event)
                 let file = event.target.files[0]; //'let' is use in ES6 instead of 'var'
+                //console.log(file)
+                if (file.size>1048576) //1MB = 1048576
+                { 
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'File Size should be less then 1MB',
+                        //footer: '<a href>Why do I have this issue?</a>'
+                    })
+                } 
+                else 
+                {
+                    let reader = new FileReader();
+                    reader.onload = event => { //ES6 formate 
+                        this.form.photo = event.target.result  //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
+                        console.log(event.target.result)
+                    };
+                    reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
+                }
                 
-                let reader = new FileReader();
-                
-                // reader.onload = function(e) {
-                reader.onload = event => { //ES6 formate 
-                    //console.log(e.target.result)
-                    this.form.photo = event.target.result  //from.photo এটা হল উপরে যে data()->{form->photo:''} লিখছি সেটা ।
-                };
-                reader.readAsDataURL(file); //Don't use 'reader.readAsText(file)' because sometime get file extention may create problem 
-
                 // File Reader: https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
            },
 
