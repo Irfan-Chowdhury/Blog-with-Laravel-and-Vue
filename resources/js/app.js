@@ -48,7 +48,7 @@ window.Toast = Toast //for using globaly that means can use with any file
 
 
 
-//---------------------------- Support Moment Js ---------------------
+//---------------------------- Support Moment Js (Time Formate) ---------------------
 
 import {filter} from './filter' 
 //This file is separated because of using different time formate

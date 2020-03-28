@@ -14,7 +14,7 @@ import EditPost from './components/admin/post/Edit.vue'
 
 // =============== FrontEnd Component =============== 
 import PublicHome from './components/public/PublicHome.vue'
-import BlogSidebar from './components/public/blog/BlogSidebar.vue'
+import BlogPost from './components/public/blog/BlogPost.vue'
 
 
 
@@ -64,6 +64,6 @@ export const routes = [
     },
     {
         path:'/blog',
-        component:BlogSidebar
+        component:BlogPost
     },
 ]

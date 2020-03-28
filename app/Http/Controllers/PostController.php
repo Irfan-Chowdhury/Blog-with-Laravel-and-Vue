@@ -37,7 +37,7 @@ class PostController extends Controller
         $extention      = explode('/',$subString)[1]; // "[0]=> data:image" / "[1]=>jpeg" আর এখানে যাস্ট extention টাই নিবে ।
         $name           = time().".".$extention;      // randomly(number) generate a unique name with extention
         $upload_path    = public_path()."/Upload_Image/";
-        $image          = Image::make($request->photo)->resize(200,200); 
+        $image          = Image::make($request->photo)->resize(870,350); 
         $image->save($upload_path.$name);             // the photos upload into "Upload_Image" folder
         
         //--- Image Intervention End ---
@@ -98,7 +98,7 @@ class PostController extends Controller
             $extention      = explode('/',$subString)[1]; // "[0]=> data:image" / "[1]=>jpeg" আর এখানে যাস্ট extention টাই নিবে ।
             $name           = time().".".$extention;      // randomly(number) generate a unique name with extention
             $upload_path    = public_path()."/Upload_Image/";
-            $image          = Image::make($request->photo)->resize(200,200); 
+            $image          = Image::make($request->photo)->resize(870,350); 
             $database_image = $upload_path.$post->photo;
             $image->save($upload_path.$name); 
 
