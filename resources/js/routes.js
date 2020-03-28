@@ -1,3 +1,4 @@
+// =============== Admin Component =============== 
 import AdminHome from './components/admin/AdminHome.vue'
 
 //Category
@@ -10,7 +11,18 @@ import PostList from './components/admin/post/List.vue'
 import AddPost from './components/admin/post/New.vue'
 import EditPost from './components/admin/post/Edit.vue'
 
+
+// =============== FrontEnd Component =============== 
+import PublicHome from './components/public/PublicHome.vue'
+import BlogSidebar from './components/public/blog/BlogSidebar.vue'
+
+
+
+
 export const routes = [
+
+// =============== Admin Route =============== 
+
     {
         path:'/home',  //this is url path
         component:AdminHome //must be use same name with import's name
@@ -42,5 +54,16 @@ export const routes = [
     {
         path:'/edit-post/:postid',
         component:EditPost
+    },
+
+
+    // =============== Frontend Route =============== 
+    {
+        path:'/',
+        component:PublicHome
+    },
+    {
+        path:'/blog',
+        component:BlogSidebar
     },
 ]

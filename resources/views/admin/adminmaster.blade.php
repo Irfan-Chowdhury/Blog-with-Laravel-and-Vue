@@ -104,7 +104,7 @@
   <!-- Main content -->
     <section class="content">
 
-        <admin-main></admin-main>
+        <admin-main></admin-main>  <!--it's Loaded now & it's come From "resources/js/app.js"-->
 
     </section>
   </div>

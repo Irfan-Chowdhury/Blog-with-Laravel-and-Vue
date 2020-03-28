@@ -36,6 +36,9 @@
 </head>
 
 <body>
+  
+<div id="app"> <!--come from "resources/js/app.js" & must be use for supporting of Vue element -->
+
   <div id="wrapper">
     <!-- toggle top area -->
     <div class="hidden-top">
@@ -178,12 +181,8 @@
               <div class="navigation">
                 <nav>
                   <ul class="nav topnav">
-                    <li class="dropdown active">
-                      <a href="index.html">Home <i class="icon-angle-down"></i></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="index-alt2.html">Homepage 2</a></li>
-                        <li><a href="index-alt3.html">Homepage 3</a></li>
-                      </ul>
+                    <li>
+                      <router-link to="/">Home</router-link> <!--router-link-->
                     </li>
                     <li class="dropdown">
                       <a href="#">Features <i class="icon-angle-down"></i></a>
@@ -221,14 +220,8 @@
                         <li><a href="portfolio-detail.html">Portfolio detail</a></li>
                       </ul>
                     </li>
-                    <li class="dropdown">
-                      <a href="#">Blog <i class="icon-angle-down"></i></a>
-                      <ul class="dropdown-menu">
-                        <li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
-                        <li><a href="blog-right-sidebar.html">Blog right sidebar</a></li>
-                        <li><a href="post-left-sidebar.html">Post left sidebar</a></li>
-                        <li><a href="post-right-sidebar.html">Post right sidebar</a></li>
-                      </ul>
+                    <li>
+                      <router-link to="/blog">Blog</router-link> <!--router-link-->
                     </li>
                     <li>
                       <a href="contact.html">Contact </a>
@@ -244,10 +237,11 @@
     </header>
     <!-- end header -->
   
-    {{-- Vue Routing Start --}}
-    {{-- Vue Routing End --}}
-
-    <!-- start footer -->
+    <!--============================== Vue Routing Start ===========================-->
+                    
+              <home-main></home-main> <!--it's Loaded now & it's come From "resources/js/app.js"-->
+    
+    <!--============================== Vue Routing End   ===========================-->
     <footer>
       <div class="container">
         <div class="row">
@@ -335,9 +329,14 @@
     </footer>
     <!-- end footer -->
   </div>
+</div>
   <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
   <!-- javascript
     ================================================== -->
+  
+  <!--Load app.js for using vue component-->  
+  <script src="{{ asset('js/app.js') }}"></script>
+
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="{{asset('assets/public/js/jquery.js')}}"></script>
   <script src="{{asset('assets/public/js/jquery.easing.1.3.js')}}"></script>

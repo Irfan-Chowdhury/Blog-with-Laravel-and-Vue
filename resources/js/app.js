@@ -3,7 +3,11 @@
 require('./bootstrap');
 window.Vue = require('vue');  // you can use this
 
-Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default); //'admin-main' this type of name must be small letter
+//---------------------------- Vue Component import ----------------------------
+
+Vue.component('admin-main', require('./components/admin/AdminMaster.vue').default); //'admin-main' this type of name must be small letter || here it is import bcz it's use into "views/admin/adminmaster.blade.php"
+
+Vue.component('home-main', require('./components/public/PublicMaster.vue').default); //1st- import here & then 2nd- it's use into "views/publi/index.blade.php" || 'home-main' this type of name must be small letter
 
 
 //---------------------------- V-form ----------------------------
