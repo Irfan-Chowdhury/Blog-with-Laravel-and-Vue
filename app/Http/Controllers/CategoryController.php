@@ -7,6 +7,11 @@ use App\Category;
 
 class CategoryController extends Controller
 {
+    public function __construct() //we can use middleware in every class but this is not good practice in large project
+    {
+        $this->middleware('auth');
+    } 
+
     public function add_category(Request $request)
     {
         //return $request->all(); //for testing in console
