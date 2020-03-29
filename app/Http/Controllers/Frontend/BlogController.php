@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
 class BlogController extends Controller
 {
     public function get_all_blog_post()
@@ -22,5 +23,19 @@ class BlogController extends Controller
          return response()->json([
              'single_post' => $single_post
          ],200);
+    }
+
+    // public function category_visitor()
+    // {
+    //     $categories_visitor = Category::all();
+    //     return response()->json([
+    //         'categories_visitor' =>$categories_visitor
+    //     ],200);  
+    // }
+    public function get_all_category(){
+        $all_category = Category::all();
+        return response()->json([
+            'all_category'=>$all_category
+        ],200);
     }
 }

@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/blogpost','BlogController@get_all_blog_post');
     Route::get('/single-post/{id}','BlogController@getpost_by_id');
+    Route::get('/all-category','BlogController@get_all_category'); // for Frontend show - we can not declare the same route of category in top bcz that is authenticate for admin which have to login aaceessble.  
 
 });
 

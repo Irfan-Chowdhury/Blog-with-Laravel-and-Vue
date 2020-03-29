@@ -4,6 +4,7 @@ export default {
         post:[], //--postList-step:4--  || use for "postList-step:3" 
         blogpost:[], //blogpost and post both are same 
         singlepost:[], //== single-post: step-4 ==
+        allcategory:[] //  ==Show-Categories-For-Visitor: Step-4==
     },
 
     getters:{
@@ -18,6 +19,9 @@ export default {
         },
         getSinglePost(state){ //== single-post: step-5 ==
             return state.singlepost 
+        },
+        getCategories(state){ // ==Show-Categories-For-Visitor: Step-5==  || then go to BlogSidebae.vue in  "==Show-Categories-For-Visitor: Step-6=="
+            return state.allcategory
         }
     },
 
@@ -49,6 +53,12 @@ export default {
                 //console.log(response.data) //just checking
                 context.commit('singlePost',response.data.single_post) // here the 'single_post' of 'response.data.single_post' is the value of - 'single_post'  ('single_post' => $post [the left]) from BlogPostcontroller & use for retrive data through this.
             })
+        },
+        allCategories(context){ //  ==Show-Categories-For-Visitor: Step-2== 
+            axios.get('/all-category')
+                .then((response)=>{
+                    context.commit('allcategories',response.data.all_category) // here the 'all_category' of 'response.data.all_category' is the value of - 'all_category'  ('all_category' => $post [the left]) from the method "get_all_category" of BlogPostcontroller & use for retrive data through this.
+                })
         }
     },
 
@@ -64,6 +74,9 @@ export default {
         },
         singlePost(state,data){ //== single-post: step-3 ==
             return state.singlepost = data // here the  "state.singlepost" = "state:{ singlepost:[] }" in top || "data" = response.data.post
+        },
+        allcategories(state,data){  // ==Show-Categories-For-Visitor: Step-3==
+            return state.allcategory = data
         }
     },
 
