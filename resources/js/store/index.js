@@ -3,6 +3,7 @@ export default {
         category:[],
         post:[], //--postList-step:4--  || use for "postList-step:3" 
         blogpost:[], //blogpost and post both are same 
+        singlepost:[], //== single-post: step-4 ==
     },
 
     getters:{
@@ -14,6 +15,9 @@ export default {
         },
         getBlogPost(state){ //blogpost and post both are same 
             return state.blogpost 
+        },
+        getSinglePost(state){ //== single-post: step-5 ==
+            return state.singlepost 
         }
     },
 
@@ -29,15 +33,22 @@ export default {
             axios.get('/post') //match with route in web.php
                 .then((response)=>{
                     //console.log(response.data) //just checking
-                    context.commit('posts',response.data.posts) //in video wrote 'allPost' instead of || here the 'posts' of 'response.data.posts' is the value of - 'posts'  ('posts' => $posts [the left]) from post controller & use for retrive data through this.
+                    context.commit('posts',response.data.posts) //in video wrote 'allPost' instead of || here the 'posts' of 'response.data.posts' is the value of - 'posts'  ('posts' => $posts [the left]) from Postcontroller & use for retrive data through this.
                 })
         },
         allBlogPost(context){  //blogpost and post both are same 
             axios.get('/blogpost') //match with route in web.php
                 .then((response)=>{
                     //console.log(response.data) //just checking
-                    context.commit('blogposts',response.data.blogposts) // here the 'blogposts' of 'response.data.blogposts' is the value of - 'blogposts'  ('blogposts' => $blogposts [the left]) from post controller & use for retrive data through this.
+                    context.commit('blogposts',response.data.blogposts) // here the 'blogposts' of 'response.data.blogposts' is the value of - 'blogposts'  ('blogposts' => $blogposts [the left]) from BlogPostcontroller & use for retrive data through this.
                 })
+        },
+        getPostById(context,id){  //== single-post: step-2 == || in video wrote "payload" instead of "id"
+            axios.get('/single-post/'+id) //match with "/single-post" in route of web.php
+            .then((response)=>{
+                //console.log(response.data) //just checking
+                context.commit('singlePost',response.data.single_post) // here the 'single_post' of 'response.data.single_post' is the value of - 'single_post'  ('single_post' => $post [the left]) from BlogPostcontroller & use for retrive data through this.
+            })
         }
     },
 
@@ -49,7 +60,10 @@ export default {
             return state.post = data //এখানে post হলো উপরের 4 লাইনের post:[] টা । post এ গিয়ে data  ঢুকবে/এসাইন হবে
         },
         blogposts(state,data){  // blogpost and post both are same ||  এখানে data = response.data.blogposts
-            return state.blogpost = data //এখানে post হলো উপরের 4 লাইনের post:[] টা । post এ গিয়ে data  ঢুকবে/এসাইন হবে
+            return state.blogpost = data //এখানে blogpost হলো উপরের 4 লাইনের blogpost:[] টা । blogpost এ গিয়ে data  ঢুকবে/এসাইন হবে
+        },
+        singlePost(state,data){ //== single-post: step-3 ==
+            return state.singlepost = data // here the  "state.singlepost" = "state:{ singlepost:[] }" in top || "data" = response.data.post
         }
     },
 

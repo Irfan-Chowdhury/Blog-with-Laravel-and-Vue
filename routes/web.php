@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
 //==================== Frontend =================
 Route::group(['namespace' => 'Frontend'], function () {
     Route::get('/blogpost','BlogController@get_all_blog_post');
+    Route::get('/single-post/{id}','BlogController@getpost_by_id');
+
 });
 
 

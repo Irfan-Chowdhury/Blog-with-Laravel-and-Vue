@@ -15,6 +15,7 @@ import EditPost from './components/admin/post/Edit.vue'
 // =============== FrontEnd Component =============== 
 import PublicHome from './components/public/PublicHome.vue'
 import BlogPost from './components/public/blog/BlogPost.vue'
+import SingleBlog from './components/public/blog/SingleBlog.vue'
 
 
 
@@ -65,5 +66,9 @@ export const routes = [
     {
         path:'/blog',
         component:BlogPost
+    },
+    {
+        path:'/single-blog/:id', //in video "blog" instead of "single-blog"
+        component:SingleBlog
     },
 ]

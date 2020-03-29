@@ -41,7 +41,8 @@
                                 <li v-if="blogpost.category"><i class="icon-folder-open"></i><a href="#">{{blogpost.category.category_name}}</a></li>
                                 <li><i class="icon-comments"></i><a href="#">4 Comments</a></li>
                                 </ul>
-                                <a href="#" class="pull-right">Continue reading <i class="icon-angle-right"></i></a>
+                                <router-link :to="'/single-blog/'+blogpost.id" class="pull-right">Continue reading <i class="icon-angle-right"></i></router-link>
+                                <!-- <a href="#" class="pull-right">Continue reading <i class="icon-angle-right"></i></a> -->
                             </div>
                             </div>
                         </div>
@@ -64,14 +65,13 @@
     
 <script>
     import BlogSidebar from "./BlogSidebar.vue" //as like include  
-
     export default {
         name: "BlogPost",
         components:{    //blogpost and post both are same 
             BlogSidebar //already import & for the <BlogSidebar></BlogSidebar> 
         },
         mounted(){
-            this.$store.dispatch('allBlogPost') //blogpost and post both are same  || 'allPost' goto action in index.js in (postList-step:2) || in video write 'getAllPost'
+            this.$store.dispatch('allBlogPost') //blogpost and post both are same  || 'allBlogPost' goto action in index.js 
         },
         computed:{
             getAllBlogPost(){ //blogpost and post both are same  || from index.js 
@@ -87,5 +87,4 @@
 </script>
 
 <style lang="scss" scoped>
-
 </style>
