@@ -62,4 +62,15 @@ class CategoryController extends Controller
         $category->category_name = $request->category_name;
         $category->save();
     }   
+
+    public function delete_selected_category($ids)
+    {
+        $all_id = explode(',',$ids); //Console এ চেক করলে 1,2,3 কমা(,) হয়ে আসে । ওটা থেকে দূর করার জন্য explode ইউজ করা হয় যাতে সেগুলা array হয়ে 123 এভাবে নে 
+        foreach($all_id as $id)
+        {
+            // echo $id;
+            $category = Category::find($id); //all_id Array ডাটার প্রতিবার একটি করে id ধরে ডিলিট হচ্ছে 
+            $category->delete();
+        } 
+    }
 }

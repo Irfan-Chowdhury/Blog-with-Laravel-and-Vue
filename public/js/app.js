@@ -4607,8 +4607,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "List",
+  data: function data() {
+    return {
+      categoryItem: [],
+      select: '',
+      all_select: false //initial stage it will be false (before select item)
+
+    };
+  },
   mounted: function mounted() {
     return this.$store.dispatch("allCategory"); //the data in list updated without reload
   },
@@ -4646,6 +4671,50 @@ __webpack_require__.r(__webpack_exports__);
           }); //------------------------------------------ E  N D----------------------------------------
         }
       });
+    },
+    deleteSelect: function deleteSelect() {
+      var _this2 = this;
+
+      //Alert Message
+      Swal.fire({
+        title: 'Are you sure to delete ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          // ---- According to video - Main Part Start ---
+          axios.get('/delete-selected-category/' + _this2.categoryItem).then(function () {
+            _this2.$store.dispatch("allCategory");
+
+            _this2.categoryItem = []; //after deleting of selected id then the dropdown will be nll
+            //For Success Alert Message
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Category Deleted Successfully'
+            });
+          }); // ---- According to video - Main Part End ---
+        }
+      });
+    },
+    selectAll: function selectAll() {
+      if (this.all_select == false) {
+        this.all_select = true; // সিলেক্ত করলে উপরে False এসাইনটা True হয়ে যাবে ।
+
+        for (var category in this.getAllCategory) {
+          // "var category" দিয়ে category ডিক্লার করছে ।। "getAllCategory" উপরের "mounted->getAllCategory()" থেকে কল করা   
+          this.categoryItem.push(this.getAllCategory[category].id); // "this.categoryItem" উপরের "data->categoryItem" থেকে কল  || "getAllCategory[category].id" এই মেথডের ভিতরে Category->id টা নিচ্ছে   
+        }
+      } else {
+        this.all_select = false; // সিলেক্ত না করলে উপরে False এসাইনটা False ই থাকবে ।
+
+        this.categoryItem = []; //if click uncheck then all selected item will be null/Uncheck
+      } // alert(this.categoryItem)
+
     }
   }
 });
@@ -83426,12 +83495,162 @@ var render = function() {
               attrs: { id: "example2" }
             },
             [
-              _vm._m(0),
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.select,
+                            expression: "select"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "", id: "" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.select = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              return _vm.deleteSelect()
+                            }
+                          ]
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Select")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Delete Selected Item")
+                        ])
+                      ]
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.all_select,
+                          expression: "all_select"
+                        }
+                      ],
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(_vm.all_select)
+                          ? _vm._i(_vm.all_select, null) > -1
+                          : _vm.all_select
+                      },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.selectAll($event)
+                        },
+                        change: function($event) {
+                          var $$a = _vm.all_select,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.all_select = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.all_select = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.all_select = $$c
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.all_select == false
+                      ? _c("span", [_vm._v("Check All")])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.all_select == true
+                      ? _c("span", [_vm._v("Uncheck All")])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("SL")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Category Name")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Date")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Action")])
+                ])
+              ]),
               _vm._v(" "),
               _c(
                 "tbody",
                 _vm._l(_vm.getAllCategory, function(category, index) {
                   return _c("tr", { key: category.id }, [
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.categoryItem,
+                            expression: "categoryItem"
+                          }
+                        ],
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          value: category.id,
+                          checked: Array.isArray(_vm.categoryItem)
+                            ? _vm._i(_vm.categoryItem, category.id) > -1
+                            : _vm.categoryItem
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.categoryItem,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = category.id,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  (_vm.categoryItem = $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  (_vm.categoryItem = $$a
+                                    .slice(0, $$i)
+                                    .concat($$a.slice($$i + 1)))
+                              }
+                            } else {
+                              _vm.categoryItem = $$c
+                            }
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(index + 1))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(category.category_name))]),
@@ -83480,24 +83699,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("SL")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Category Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Action")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
