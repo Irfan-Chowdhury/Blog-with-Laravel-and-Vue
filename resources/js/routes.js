@@ -71,4 +71,8 @@ export const routes = [
         path:'/single-blog/:id', //in video "blog" instead of "single-blog"
         component:SingleBlog
     },
+    {
+        path:'/categories/:id', 
+        component:BlogPost
+    },
 ]

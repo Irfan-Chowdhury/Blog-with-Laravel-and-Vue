@@ -2,9 +2,10 @@ export default {
     state:{
         category:[],
         post:[], //--postList-step:4--  || use for "postList-step:3" 
-        blogpost:[], //blogpost and post both are same 
+        blogpost:[], //blogpost and post both are same || ==PostsByCategoty:Step-5 ==
         singlepost:[], //== single-post: step-4 ==
-        allcategory:[] //  ==Show-Categories-For-Visitor: Step-4==
+        allcategory:[], //  ==Show-Categories-For-Visitor: Step-4==
+        // postsByCategory:[],
     },
 
     getters:{
@@ -14,15 +15,18 @@ export default {
         getPost(state){ //--postList-step:5 -- || then goto List.vue || in video wrote 'getAllPost'
             return state.post 
         },
-        getBlogPost(state){ //blogpost and post both are same 
-            return state.blogpost 
+        getBlogPost(state){ // goto BlogPost.vue ||blogpost and post both are same || ==PostsByCategoty:Step-6 == 
+            return state.blogpost
         },
         getSinglePost(state){ //== single-post: step-5 ==
             return state.singlepost 
         },
         getCategories(state){ // ==Show-Categories-For-Visitor: Step-5==  || then go to BlogSidebae.vue in  "==Show-Categories-For-Visitor: Step-6=="
             return state.allcategory
-        }
+        },
+        // getPostsByCategory(state){ // 
+        //     return state.postsByCategory
+        // }
     },
 
     actions:{
@@ -59,6 +63,12 @@ export default {
                 .then((response)=>{
                     context.commit('allcategories',response.data.all_category) // here the 'all_category' of 'response.data.all_category' is the value of - 'all_category'  ('all_category' => $post [the left]) from the method "get_all_category" of BlogPostcontroller & use for retrive data through this.
                 })
+        },
+        getPostsByCategoryId(context,payload){ // ==PostsByCategoty:Step-3 == || Here "Payload" means "Id"
+            axios.get('/posts-by-category/'+payload)
+                .then((response)=>{
+                    context.commit('postsByCategoryId',response.data.posts_by_category)
+                })
         }
     },
 
@@ -77,7 +87,13 @@ export default {
         },
         allcategories(state,data){  // ==Show-Categories-For-Visitor: Step-3==
             return state.allcategory = data
-        }
+        },
+        // postsByCategoryId(state,data){  // //==PostsByCategoty:Step-4 ==
+        //     return state.postsByCategory = data 
+        // }        
+        postsByCategoryId(state,payload){  //==PostsByCategoty:Step-4 ==
+            return state.blogpost = payload 
+        }        
     },
 
 

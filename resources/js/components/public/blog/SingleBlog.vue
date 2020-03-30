@@ -62,8 +62,10 @@
             BlogSidebar //already import & for the <BlogSidebar></BlogSidebar> 
         },
 
-        mounted(){ //== single-post: step-1 ==
-            this.$store.dispatch('getPostById',this.$route.params.id) //then go index.js
+        mounted(){ //== single-post: step-1 == || Firstly this mounted load with related page load  
+            //this.$store.dispatch('getPostById',this.$route.params.id) //then go index.js
+            
+            this.singlePost();    //call to "singlePost" in "methods" || এটি পরে এভাবে করা হয়েছে saidebar এ Latest Post থাকা আর্টিকেলে ক্লিক করলে যাতে সাথে সাথে Single-Blog লোড হয় 
         },
 
         computed:{
@@ -72,7 +74,15 @@
           }
         },
         methods:{
+            singlePost(){
+                this.$store.dispatch('getPostById',this.$route.params.id)
+            }
         },
+        watch:{
+            $route(to,from){ // Use for - quickly change into Single-Blog from Sidebar "Latest Post" | saidebar এ Latest Post থাকা আর্টিকেলে ক্লিক করলে যাতে সাথে সাথে Single-Blog লোড হয় 
+                this.singlePost();
+            }
+        }
        
     }
 </script>

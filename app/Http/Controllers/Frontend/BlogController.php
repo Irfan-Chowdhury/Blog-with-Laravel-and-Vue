@@ -24,18 +24,17 @@ class BlogController extends Controller
              'single_post' => $single_post
          ],200);
     }
-
-    // public function category_visitor()
-    // {
-    //     $categories_visitor = Category::all();
-    //     return response()->json([
-    //         'categories_visitor' =>$categories_visitor
-    //     ],200);  
-    // }
     public function get_all_category(){
         $all_category = Category::all();
         return response()->json([
             'all_category'=>$all_category
+        ],200);
+    }
+    public function getPostsByCategoryId($id)
+    {
+        $posts_by_category = Post::with('user','category')->where('category_id',$id)->orderBy('id','DESC')->get(); //'user' & 'category' come from Post Model
+        return response()->json([
+            'posts_by_category' => $posts_by_category  //go to index.js
         ],200);
     }
 }

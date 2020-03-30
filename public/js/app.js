@@ -5268,6 +5268,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch('allBlogPost'); //blogpost and post both are same  || 'allBlogPost' goto action in index.js 
+    // this.getAllPostsByCategory(); // ==PostsByCategoty:Step-1 ==
   },
   computed: {
     getAllBlogPost: function getAllBlogPost() {
@@ -5275,9 +5276,25 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getBlogPost; // from index.js
     }
   },
-  methods: {//     ourImage(img){ //--postList-step:7 --   // ---- Optional -----
+  methods: {
+    //     ourImage(img){ //--postList-step:7 --   // ---- Optional -----
     //         return "Upload_Image/"+img;
     //   },
+    getAllPostsByCategory: function getAllPostsByCategory() {
+      //==PostsByCategoty:Step-2 ==
+      if (this.$route.params.id != null) {
+        this.$store.dispatch('getPostsByCategoryId', this.$route.params.id);
+      } else {
+        this.$store.dispatch('allBlogPost');
+      }
+    }
+  },
+  watch: {
+    //|| Use for - quickly change into "Categories"-"Blog" /or/ "Blog"-"Categories" in Sidebar | Sidebar এ Categories এ ক্লিক করলে পোস্ট ঐ অনুসারে পোস্ট দেখাবে । আবার "Blog" এ ক্লিক করলে Blog এ নিয়ে আসবে । watch ব্যবহার না করলে Category wise Posts দেখালে "Blog" এ ক্লিক করলে তখন কাজ করবেনা ।   
+    $route: function $route(to, from) {
+      //==PostsByCategoty:Step-7 == 
+      this.getAllPostsByCategory();
+    }
   }
 });
 
@@ -5292,6 +5309,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -5434,8 +5455,9 @@ __webpack_require__.r(__webpack_exports__);
 
   },
   mounted: function mounted() {
-    //== single-post: step-1 ==
-    this.$store.dispatch('getPostById', this.$route.params.id); //then go index.js
+    //== single-post: step-1 == || Firstly this mounted load with related page load  
+    //this.$store.dispatch('getPostById',this.$route.params.id) //then go index.js
+    this.singlePost(); //call to "singlePost" in "methods" || এটি পরে এভাবে করা হয়েছে saidebar এ Latest Post থাকা আর্টিকেলে ক্লিক করলে যাতে সাথে সাথে Single-Blog লোড হয় 
   },
   computed: {
     getSingleBlogPost: function getSingleBlogPost() {
@@ -5443,7 +5465,17 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getSinglePost; // from index.js of "== single-post: step-5 ==" of index.js 
     }
   },
-  methods: {}
+  methods: {
+    singlePost: function singlePost() {
+      this.$store.dispatch('getPostById', this.$route.params.id);
+    }
+  },
+  watch: {
+    $route: function $route(to, from) {
+      // Use for - quickly change into Single-Blog from Sidebar "Latest Post" | saidebar এ Latest Post থাকা আর্টিকেলে ক্লিক করলে যাতে সাথে সাথে Single-Blog লোড হয় 
+      this.singlePost();
+    }
+  }
 });
 
 /***/ }),
@@ -84298,7 +84330,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("section", { attrs: { id: "inner-headline" } }, [
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "span4" }, [
+            _c("div", { staticClass: "inner-heading" }, [
+              _c("h2", [
+                _vm._v("Blog left sidebar " + _vm._s(this.$route.params.id))
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("section", { attrs: { id: "content" } }, [
       _c("div", { staticClass: "container" }, [
@@ -84417,35 +84463,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { attrs: { id: "inner-headline" } }, [
-      _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "span4" }, [
-            _c("div", { staticClass: "inner-heading" }, [
-              _c("h2", [_vm._v("Blog left sidebar")])
-            ])
+    return _c("div", { staticClass: "span8" }, [
+      _c("ul", { staticClass: "breadcrumb" }, [
+        _c("li", [
+          _c("a", { attrs: { href: "#" } }, [
+            _c("i", { staticClass: "icon-home" })
           ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "span8" }, [
-            _c("ul", { staticClass: "breadcrumb" }, [
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("i", { staticClass: "icon-home" })
-                ]),
-                _c("i", { staticClass: "icon-angle-right" })
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Blog")]),
-                _c("i", { staticClass: "icon-angle-right" })
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "active" }, [
-                _vm._v("Blog with left sidebar")
-              ])
-            ])
-          ])
-        ])
+          _c("i", { staticClass: "icon-angle-right" })
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Blog")]),
+          _c("i", { staticClass: "icon-angle-right" })
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "active" }, [_vm._v("Blog with left sidebar")])
       ])
     ])
   },
@@ -84506,11 +84538,20 @@ var render = function() {
             "ul",
             { staticClass: "cat" },
             _vm._l(_vm.getAllcategory, function(category) {
-              return _c("li", { key: category.id }, [
-                _c("i", { staticClass: "icon-angle-right" }),
-                _c("a", { attrs: { href: "#" } }),
-                _c("span", [_vm._v(" " + _vm._s(category.category_name))])
-              ])
+              return _c(
+                "li",
+                { key: category.id },
+                [
+                  _c("i", { staticClass: "icon-angle-right" }),
+                  _c(
+                    "router-link",
+                    { attrs: { to: "/categories/" + category.id } },
+                    [_vm._v(_vm._s(category.category_name))]
+                  ),
+                  _c("span", [_vm._v("(20)")])
+                ],
+                1
+              )
             }),
             0
           )
@@ -84535,11 +84576,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("h6", [
-                      _c("a", { attrs: { href: "#" } }, [
-                        _vm._v(_vm._s(blogpost.title))
-                      ])
-                    ]),
+                    _c(
+                      "h6",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/single-blog/" + blogpost.id } },
+                          [_vm._v(_vm._s(blogpost.title))]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c("p", [
                       _vm._v(
@@ -102038,6 +102085,9 @@ var routes = [// =============== Admin Route ===============
   path: '/single-blog/:id',
   //in video "blog" instead of "single-blog"
   component: _components_public_blog_SingleBlog_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+}, {
+  path: '/categories/:id',
+  component: _components_public_blog_BlogPost_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }];
 
 /***/ }),
@@ -102057,10 +102107,11 @@ __webpack_require__.r(__webpack_exports__);
     post: [],
     //--postList-step:4--  || use for "postList-step:3" 
     blogpost: [],
-    //blogpost and post both are same 
+    //blogpost and post both are same || ==PostsByCategoty:Step-5 ==
     singlepost: [],
     //== single-post: step-4 ==
     allcategory: [] //  ==Show-Categories-For-Visitor: Step-4==
+    // postsByCategory:[],
 
   },
   getters: {
@@ -102072,7 +102123,7 @@ __webpack_require__.r(__webpack_exports__);
       return state.post;
     },
     getBlogPost: function getBlogPost(state) {
-      //blogpost and post both are same 
+      // goto BlogPost.vue ||blogpost and post both are same || ==PostsByCategoty:Step-6 == 
       return state.blogpost;
     },
     getSinglePost: function getSinglePost(state) {
@@ -102082,7 +102133,10 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories(state) {
       // ==Show-Categories-For-Visitor: Step-5==  || then go to BlogSidebae.vue in  "==Show-Categories-For-Visitor: Step-6=="
       return state.allcategory;
-    }
+    } // getPostsByCategory(state){ // 
+    //     return state.postsByCategory
+    // }
+
   },
   actions: {
     allCategory: function allCategory(context) {
@@ -102121,6 +102175,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/all-category').then(function (response) {
         context.commit('allcategories', response.data.all_category); // here the 'all_category' of 'response.data.all_category' is the value of - 'all_category'  ('all_category' => $post [the left]) from the method "get_all_category" of BlogPostcontroller & use for retrive data through this.
       });
+    },
+    getPostsByCategoryId: function getPostsByCategoryId(context, payload) {
+      // ==PostsByCategoty:Step-3 == || Here "Payload" means "Id"
+      axios.get('/posts-by-category/' + payload).then(function (response) {
+        context.commit('postsByCategoryId', response.data.posts_by_category);
+      });
     }
   },
   mutations: {
@@ -102142,6 +102202,13 @@ __webpack_require__.r(__webpack_exports__);
     allcategories: function allcategories(state, data) {
       // ==Show-Categories-For-Visitor: Step-3==
       return state.allcategory = data;
+    },
+    // postsByCategoryId(state,data){  // //==PostsByCategoty:Step-4 ==
+    //     return state.postsByCategory = data 
+    // }        
+    postsByCategoryId: function postsByCategoryId(state, payload) {
+      //==PostsByCategoty:Step-4 ==
+      return state.blogpost = payload;
     }
   }
 });

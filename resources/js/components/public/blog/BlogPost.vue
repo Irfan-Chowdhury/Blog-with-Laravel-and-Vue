@@ -5,7 +5,7 @@
                 <div class="row">
                 <div class="span4">
                     <div class="inner-heading">
-                    <h2>Blog left sidebar</h2>
+                    <h2>Blog left sidebar {{this.$route.params.id}}</h2>
                     </div>
                 </div>
                 <div class="span8">
@@ -72,6 +72,7 @@
         },
         mounted(){
             this.$store.dispatch('allBlogPost') //blogpost and post both are same  || 'allBlogPost' goto action in index.js 
+            // this.getAllPostsByCategory(); // ==PostsByCategoty:Step-1 ==
         },
         computed:{
             getAllBlogPost(){ //blogpost and post both are same  || from index.js 
@@ -82,7 +83,23 @@
         //     ourImage(img){ //--postList-step:7 --   // ---- Optional -----
         //         return "Upload_Image/"+img;
         //   },
-        }
+          getAllPostsByCategory(){ //==PostsByCategoty:Step-2 ==
+              if (this.$route.params.id!=null) 
+              {
+                  this.$store.dispatch('getPostsByCategoryId',this.$route.params.id);
+              }
+              else
+              {
+                  this.$store.dispatch('allBlogPost')
+              }
+          }
+        },
+        watch:{  //|| Use for - quickly change into "Categories"-"Blog" /or/ "Blog"-"Categories" in Sidebar | Sidebar এ Categories এ ক্লিক করলে পোস্ট ঐ অনুসারে পোস্ট দেখাবে । আবার "Blog" এ ক্লিক করলে Blog এ নিয়ে আসবে । watch ব্যবহার না করলে Category wise Posts দেখালে "Blog" এ ক্লিক করলে তখন কাজ করবেনা ।   
+            $route(to,from){ //==PostsByCategoty:Step-7 == 
+                this.getAllPostsByCategory();
+            }
+        },
+
     }
 </script>
 

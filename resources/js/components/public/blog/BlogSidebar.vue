@@ -12,18 +12,22 @@
                 <h5 class="widgetheading">Categories</h5>
                 <!-- ==================== Show Categories Start ============= -->
                 <ul class="cat">
-                    <li v-for="category in getAllcategory" :key="category.id"><i class="icon-angle-right"></i><a href="#"></a><span> {{category.category_name}}</span></li>
+                    <li v-for="category in getAllcategory" :key="category.id"><i class="icon-angle-right"></i><router-link :to="`/categories/${category.id}`">{{category.category_name}}</router-link><span>(20)</span></li>
                 </ul>
                 <!-- ==================== Show Categories End ============= -->
             </div>
             <div class="widget">
                 <h5 class="widgetheading">Latest posts</h5>
                 <ul class="recent">
+                    <!-- ==================== Show Latest Post Start ============== -->
                     <li v-for="(blogpost,index) in getAllBlogPost" v-if="index<3" :key="blogpost.id">
                         <img :src="`Upload_Image/${blogpost.photo}`" class="pull-left" height="65px" width="65px" alt="" />
-                        <h6><a href="#">{{blogpost.title}}</a></h6>
+                        <!-- <h6><router-link :to="'/single-blog/'+blogpost.id">{{blogpost.title}}</router-link></h6> -->
+                        <h6><router-link :to="`/single-blog/${blogpost.id}`">{{blogpost.title}}</router-link></h6>
                         <p>{{blogpost.description |shortlength(100,"...")}}</p>
                     </li>
+                    <!-- ==================== Show Latest Post End ============= -->
+
                 </ul>
             </div>
             <div class="widget">
