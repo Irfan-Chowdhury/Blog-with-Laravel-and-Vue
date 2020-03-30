@@ -24,12 +24,14 @@ class BlogController extends Controller
              'single_post' => $single_post
          ],200);
     }
+
     public function get_all_category(){
         $all_category = Category::all();
         return response()->json([
             'all_category'=>$all_category
         ],200);
     }
+
     public function getPostsByCategoryId($id)
     {
         $posts_by_category = Post::with('user','category')->where('category_id',$id)->orderBy('id','DESC')->get(); //'user' & 'category' come from Post Model
@@ -37,4 +39,18 @@ class BlogController extends Controller
             'posts_by_category' => $posts_by_category  //go to index.js
         ],200);
     }
+
+    public function search_post()
+    {
+        $search = \Request::get('s'); //Scope Resoulation(:) - যদি কোন মেথড স্ট্যাটিক ডিফাইন্ড করা থাকে , সেক্ষেত্রে ডাবল কোলন থেকে সরাসরি ঐ মেথডে এক্সেস করা যায় 
+        $posts = Post::with('user','category')
+                    ->where('title','LIKE',"%$search%")
+                    ->orWhere('description','LIKE',"%$search%")
+                    ->get();
+
+        return response()->json([
+            'posts' =>$posts
+        ],200);
+    }
+
 }

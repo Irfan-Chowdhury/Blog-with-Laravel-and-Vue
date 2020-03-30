@@ -3,10 +3,12 @@
         <div class="span4">
             <aside class="right-sidebar">
             <div class="widget">
-                <form class="form-search">
-                <input placeholder="Type something" type="text" class="input-medium search-query">
-                <button type="submit" class="btn btn-square btn-theme">Search</button>
+                <!-- ==================== Search Start ============= -->
+                <form class="form-search"> <!--Search:Step-1-->
+                    <input :keyup="RealSearch()" placeholder="Type something" type="text" v-model="keyword" class="input-medium search-query">
+                    <button type="submit"@click.prevent="RealSearch()" class="btn btn-square btn-theme">Search</button> <!--Search:Step-1-->
                 </form>
+                <!-- ==================== Search End ============= -->
             </div>
             <div class="widget">
                 <h5 class="widgetheading">Categories</h5>
@@ -50,6 +52,12 @@
     export default {
         name: "BlogPost",
 
+        data(){
+            return {
+                keyword:''
+            }
+        },
+
         mounted(){ //কোন Component Load হওয়র সাথে সাথে mounted load হয় আগে 
             // ভুলেও এডমিনের Method/Route গুলা ইউজ করা যাবেনা কারণ ওগুলা Authenticate মানে লগিন থাকা লাগে
              this.$store.dispatch('allCategories') // ==Show-Categories-For-Visitor: Step-1== || goto "action' in "index.js"
@@ -63,6 +71,11 @@
                 return this.$store.getters.getBlogPost // from index.js
           }
         },
+        methods:{
+            RealSearch(){ // == Search:Step-2 ==
+                this.$store.dispatch('SearchPost',this.keyword)
+            }
+        }
     }
 </script>
 

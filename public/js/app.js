@@ -5357,8 +5357,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BlogPost",
+  data: function data() {
+    return {
+      keyword: ''
+    };
+  },
   mounted: function mounted() {
     //কোন Component Load হওয়র সাথে সাথে mounted load হয় আগে 
     // ভুলেও এডমিনের Method/Route গুলা ইউজ করা যাবেনা কারণ ওগুলা Authenticate মানে লগিন থাকা লাগে
@@ -5374,6 +5381,12 @@ __webpack_require__.r(__webpack_exports__);
     getAllBlogPost: function getAllBlogPost() {
       // from index.js 
       return this.$store.getters.getBlogPost; // from index.js
+    }
+  },
+  methods: {
+    RealSearch: function RealSearch() {
+      // == Search:Step-2 ==
+      this.$store.dispatch('SearchPost', this.keyword);
     }
   }
 });
@@ -84529,7 +84542,50 @@ var render = function() {
   return _c("div", { attrs: { id: "sidebar" } }, [
     _c("div", { staticClass: "span4" }, [
       _c("aside", { staticClass: "right-sidebar" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "widget" }, [
+          _c("form", { staticClass: "form-search" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.keyword,
+                  expression: "keyword"
+                }
+              ],
+              staticClass: "input-medium search-query",
+              attrs: {
+                keyup: _vm.RealSearch(),
+                placeholder: "Type something",
+                type: "text"
+              },
+              domProps: { value: _vm.keyword },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.keyword = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-square btn-theme",
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.RealSearch()
+                  }
+                }
+              },
+              [_vm._v("Search")]
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "widget" }, [
           _c("h5", { staticClass: "widgetheading" }, [_vm._v("Categories")]),
@@ -84606,34 +84662,12 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _vm._m(0)
       ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget" }, [
-      _c("form", { staticClass: "form-search" }, [
-        _c("input", {
-          staticClass: "input-medium search-query",
-          attrs: { placeholder: "Type something", type: "text" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-square btn-theme",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Search")]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -102181,6 +102215,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/posts-by-category/' + payload).then(function (response) {
         context.commit('postsByCategoryId', response.data.posts_by_category);
       });
+    },
+    SearchPost: function SearchPost(context, payload) {
+      //== Search:Step-3 == || from BlogSidebar.vue of "== Search:Step-2 =="
+      axios.get('/search?s=' + payload).then(function (response) {
+        context.commit('getSearchPost', response.data.posts);
+      });
     }
   },
   mutations: {
@@ -102209,6 +102249,10 @@ __webpack_require__.r(__webpack_exports__);
     postsByCategoryId: function postsByCategoryId(state, payload) {
       //==PostsByCategoty:Step-4 ==
       return state.blogpost = payload;
+    },
+    getSearchPost: function getSearchPost(state, payload) {
+      //== Search:Step-4 ==
+      state.blogpost = payload;
     }
   }
 });

@@ -69,6 +69,12 @@ export default {
                 .then((response)=>{
                     context.commit('postsByCategoryId',response.data.posts_by_category)
                 })
+        },
+        SearchPost(context,payload){ //== Search:Step-3 == || from BlogSidebar.vue of "== Search:Step-2 =="
+            axios.get('/search?s='+payload)
+                .then((response)=>{
+                    context.commit('getSearchPost',response.data.posts)
+                })
         }
     },
 
@@ -93,6 +99,9 @@ export default {
         // }        
         postsByCategoryId(state,payload){  //==PostsByCategoty:Step-4 ==
             return state.blogpost = payload 
+        },
+        getSearchPost(state,payload){ //== Search:Step-4 ==
+            state.blogpost =payload
         }        
     },
 
