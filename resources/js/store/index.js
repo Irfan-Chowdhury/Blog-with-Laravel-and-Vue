@@ -6,6 +6,7 @@ export default {
         singlepost:[], //== single-post: step-4 ==
         allcategory:[], //  ==Show-Categories-For-Visitor: Step-4==
         // postsByCategory:[],
+        latestposts:[],
     },
 
     getters:{
@@ -26,7 +27,10 @@ export default {
         },
         // getPostsByCategory(state){ // 
         //     return state.postsByCategory
-        // }
+        // },
+        getLatestPosts(state){
+            return state.latestposts
+        }
     },
 
     actions:{
@@ -75,6 +79,13 @@ export default {
                 .then((response)=>{
                     context.commit('getSearchPost',response.data.posts)
                 })
+        },
+        allLatestPost(context){
+            axios.get('/latest-post') //match with route in web.php
+                .then((response)=>{
+                    //console.log(response.data) //just checking
+                    context.commit('latestposts',response.data.latest_posts) // here the 'latest_posts' of 'response.data.latest_posts' is the value of - 'latest_posts'  ('latest_posts' => $latest_posts [the left]) from BlogPostcontroller & use for retrive data through this.
+                })
         }
     },
 
@@ -101,7 +112,10 @@ export default {
             return state.blogpost = payload 
         },
         getSearchPost(state,payload){ //== Search:Step-4 ==
-            state.blogpost =payload
+            return state.blogpost =payload
+        },
+        latestposts(state,data){
+            return state.latestposts = data
         }        
     },
 

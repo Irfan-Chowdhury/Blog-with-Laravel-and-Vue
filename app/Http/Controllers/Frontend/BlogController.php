@@ -70,9 +70,14 @@ class BlogController extends Controller
         // else {
         //     return $this->get_all_blog_post();
         // }
-        
+    }
 
-
+    public function latestPost()
+    {
+        $latest_posts = Post::with('user','category')->orderBy('id','DESC')->get(); //'user' & 'category' come from Post Model
+        return response()->json([
+            'latest_posts' => $latest_posts
+        ],200);
     }
 
 }

@@ -5375,16 +5375,16 @@ __webpack_require__.r(__webpack_exports__);
     // ভুলেও এডমিনের Method/Route গুলা ইউজ করা যাবেনা কারণ ওগুলা Authenticate মানে লগিন থাকা লাগে
     this.$store.dispatch('allCategories'); // ==Show-Categories-For-Visitor: Step-1== || goto "action' in "index.js"
 
-    this.$store.dispatch('allBlogPost'); // goto "action' in "index.js"
+    this.$store.dispatch('allLatestPost'); // goto "action' in "index.js"
   },
   computed: {
     getAllcategory: function getAllcategory() {
       // ==Show-Categories-For-Visitor: Step-6==  || from gettters in index.js of " ==Show-Categories-For-Visitor: Step-5=="
       return this.$store.getters.getCategories;
     },
-    getAllBlogPost: function getAllBlogPost() {
+    getAllLatestPosts: function getAllLatestPosts() {
       // from index.js 
-      return this.$store.getters.getBlogPost; // from index.js
+      return this.$store.getters.getLatestPosts; // from index.js
     }
   },
   methods: {
@@ -84626,13 +84626,13 @@ var render = function() {
           _c(
             "ul",
             { staticClass: "recent" },
-            _vm._l(_vm.getAllBlogPost, function(blogpost, index) {
+            _vm._l(_vm.getAllLatestPosts, function(latestpost, index) {
               return index < 3
-                ? _c("li", { key: blogpost.id }, [
+                ? _c("li", { key: latestpost.id }, [
                     _c("img", {
                       staticClass: "pull-left",
                       attrs: {
-                        src: "Upload_Image/" + blogpost.photo,
+                        src: "Upload_Image/" + latestpost.photo,
                         height: "65px",
                         width: "65px",
                         alt: ""
@@ -84644,8 +84644,8 @@ var render = function() {
                       [
                         _c(
                           "router-link",
-                          { attrs: { to: "/single-blog/" + blogpost.id } },
-                          [_vm._v(_vm._s(blogpost.title))]
+                          { attrs: { to: "/single-blog/" + latestpost.id } },
+                          [_vm._v(_vm._s(latestpost.title))]
                         )
                       ],
                       1
@@ -84655,7 +84655,7 @@ var render = function() {
                       _vm._v(
                         _vm._s(
                           _vm._f("shortlength")(
-                            blogpost.description,
+                            latestpost.description,
                             100,
                             "..."
                           )
@@ -102151,9 +102151,10 @@ __webpack_require__.r(__webpack_exports__);
     //blogpost and post both are same || ==PostsByCategoty:Step-5 ==
     singlepost: [],
     //== single-post: step-4 ==
-    allcategory: [] //  ==Show-Categories-For-Visitor: Step-4==
+    allcategory: [],
+    //  ==Show-Categories-For-Visitor: Step-4==
     // postsByCategory:[],
-
+    latestposts: []
   },
   getters: {
     getCategory: function getCategory(state) {
@@ -102174,10 +102175,13 @@ __webpack_require__.r(__webpack_exports__);
     getCategories: function getCategories(state) {
       // ==Show-Categories-For-Visitor: Step-5==  || then go to BlogSidebae.vue in  "==Show-Categories-For-Visitor: Step-6=="
       return state.allcategory;
-    } // getPostsByCategory(state){ // 
+    },
+    // getPostsByCategory(state){ // 
     //     return state.postsByCategory
-    // }
-
+    // },
+    getLatestPosts: function getLatestPosts(state) {
+      return state.latestposts;
+    }
   },
   actions: {
     allCategory: function allCategory(context) {
@@ -102228,6 +102232,13 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/search?s=' + payload).then(function (response) {
         context.commit('getSearchPost', response.data.posts);
       });
+    },
+    allLatestPost: function allLatestPost(context) {
+      axios.get('/latest-post') //match with route in web.php
+      .then(function (response) {
+        //console.log(response.data) //just checking
+        context.commit('latestposts', response.data.latest_posts); // here the 'latest_posts' of 'response.data.latest_posts' is the value of - 'latest_posts'  ('latest_posts' => $latest_posts [the left]) from BlogPostcontroller & use for retrive data through this.
+      });
     }
   },
   mutations: {
@@ -102259,7 +102270,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     getSearchPost: function getSearchPost(state, payload) {
       //== Search:Step-4 ==
-      state.blogpost = payload;
+      return state.blogpost = payload;
+    },
+    latestposts: function latestposts(state, data) {
+      return state.latestposts = data;
     }
   }
 });

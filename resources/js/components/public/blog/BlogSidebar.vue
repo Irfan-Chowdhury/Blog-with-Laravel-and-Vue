@@ -22,11 +22,11 @@
                 <h5 class="widgetheading">Latest posts</h5>
                 <ul class="recent">
                     <!-- ==================== Show Latest Post Start ============== -->
-                    <li v-for="(blogpost,index) in getAllBlogPost" v-if="index<3" :key="blogpost.id">
-                        <img :src="`Upload_Image/${blogpost.photo}`" class="pull-left" height="65px" width="65px" alt="" />
-                        <!-- <h6><router-link :to="'/single-blog/'+blogpost.id">{{blogpost.title}}</router-link></h6> -->
-                        <h6><router-link :to="`/single-blog/${blogpost.id}`">{{blogpost.title}}</router-link></h6>
-                        <p>{{blogpost.description |shortlength(100,"...")}}</p>
+                    <li v-for="(latestpost,index) in getAllLatestPosts" v-if="index<3" :key="latestpost.id">
+                        <img :src="`Upload_Image/${latestpost.photo}`" class="pull-left" height="65px" width="65px" alt="" />
+                        <!-- <h6><router-link :to="'/single-blog/'+latestpost.id">{{latestpost.title}}</router-link></h6> -->
+                        <h6><router-link :to="`/single-blog/${latestpost.id}`">{{latestpost.title}}</router-link></h6>
+                        <p>{{latestpost.description |shortlength(100,"...")}}</p>
                     </li>
                     <!-- ==================== Show Latest Post End ============= -->
 
@@ -62,14 +62,14 @@
         mounted(){ //কোন Component Load হওয়র সাথে সাথে mounted load হয় আগে 
             // ভুলেও এডমিনের Method/Route গুলা ইউজ করা যাবেনা কারণ ওগুলা Authenticate মানে লগিন থাকা লাগে
              this.$store.dispatch('allCategories') // ==Show-Categories-For-Visitor: Step-1== || goto "action' in "index.js"
-             this.$store.dispatch('allBlogPost') // goto "action' in "index.js"
+             this.$store.dispatch('allLatestPost') // goto "action' in "index.js"
         },
         computed: {
             getAllcategory(){  // ==Show-Categories-For-Visitor: Step-6==  || from gettters in index.js of " ==Show-Categories-For-Visitor: Step-5=="
               return this.$store.getters.getCategories;
             },
-            getAllBlogPost(){ // from index.js 
-                return this.$store.getters.getBlogPost // from index.js
+            getAllLatestPosts(){ // from index.js 
+                return this.$store.getters.getLatestPosts // from index.js
           }
         },
         methods:{
