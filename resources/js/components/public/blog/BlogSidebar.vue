@@ -49,6 +49,8 @@
 </template>
 
 <script>
+    import _ from "lodash" // underscore means (lodash)
+
     export default {
         name: "BlogPost",
 
@@ -57,7 +59,6 @@
                 keyword:''
             }
         },
-
         mounted(){ //কোন Component Load হওয়র সাথে সাথে mounted load হয় আগে 
             // ভুলেও এডমিনের Method/Route গুলা ইউজ করা যাবেনা কারণ ওগুলা Authenticate মানে লগিন থাকা লাগে
              this.$store.dispatch('allCategories') // ==Show-Categories-For-Visitor: Step-1== || goto "action' in "index.js"
@@ -72,9 +73,12 @@
           }
         },
         methods:{
-            RealSearch(){ // == Search:Step-2 ==
+            // RealSearch(){ // == Search:Step-2 ==
+            //     this.$store.dispatch('SearchPost',this.keyword)
+            // }
+            RealSearch:_.debounce(function() {
                 this.$store.dispatch('SearchPost',this.keyword)
-            }
+            },1000) //1000 means 1 secenod
         }
     }
 </script>

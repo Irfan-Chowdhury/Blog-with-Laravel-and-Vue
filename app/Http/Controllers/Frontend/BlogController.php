@@ -51,6 +51,28 @@ class BlogController extends Controller
         return response()->json([
             'posts' =>$posts
         ],200);
+
+
+        // Create Problem in bellow line || উপরেরটা-নিচেরটা সেইম । যদি ঐখানে (vue তে) সার্চ NULL ইত্যাদি কাজ না করে, কোন প্রবলেম হয় নিচেরটা লিখা যাবে । 
+
+        // $search = \Request::get('s'); //Scope Resoulation(:) - যদি কোন মেথড স্ট্যাটিক ডিফাইন্ড করা থাকে , সেক্ষেত্রে ডাবল কোলন থেকে সরাসরি ঐ মেথডে এক্সেস করা যায় 
+        // if ($search!=null) 
+        // {
+        //     $posts = Post::with('user','category')
+        //             ->where('title','LIKE',"%$search%")
+        //             ->orWhere('description','LIKE',"%$search%")
+        //             ->get();
+
+        //     return response()->json([
+        //         'posts' =>$posts
+        //     ],200);
+        // }
+        // else {
+        //     return $this->get_all_blog_post();
+        // }
+        
+
+
     }
 
 }
