@@ -119,4 +119,21 @@ class PostController extends Controller
         $post->photo       = $name; 
         $post->update();
     }
+    
+    public function delete_selected_post($ids)
+    {
+        $all_id = explode(',',$ids); //Console এ চেক করলে 1,2,3 কমা(,) হয়ে আসে । ওটা থেকে দূর করার জন্য explode ইউজ করা হয় যাতে সেগুলা array হয়ে 123 এভাবে নে 
+        foreach($all_id as $id)
+        {
+            // echo $id;
+            $post = Post::find($id); //all_id Array ডাটার প্রতিবার একটি করে id ধরে ডিলিট হচ্ছে 
+            
+            $image_path = public_path()."/Upload_Image/";
+            $image      = $image_path . $post->photo; //concate
+            if (file_exists($image)) {
+                @unlink($image);
+            }
+            $post->delete();
+        } 
+    }
 }

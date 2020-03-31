@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/delete-post/{id}','PostController@delete_post');
     Route::get('/edit-post/{id}','PostController@edit_post');
     Route::post('/update-post/{id}','PostController@update_post');
+    Route::get('/delete-selected-post/{id}','PostController@delete_selected_post');
     
 });
 
